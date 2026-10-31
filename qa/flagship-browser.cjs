@@ -60,6 +60,11 @@ const server=http.createServer((req,res)=>{
     if(cfg.site==='zoja'){
      assert.equal(await page.locator('video').count(),1);
      assert.equal(await page.locator('.contact-call').getAttribute('href'),'tel:+420731989989');
+     assert.equal(await page.locator('.practical-grid article').count(),3);
+     if(width===390||width===1280){
+       await page.locator('#prakticky').scrollIntoViewIfNeeded();
+       await page.screenshot({path:'C:/Projekty/Odruky-browser-qa/p3-zoja-practical-'+width+'.jpg',type:'jpeg',quality:78});
+     }
      if(width<=768){
       const menu=page.locator('nav .mobile-nav');
       assert.equal(await menu.isVisible(),true);
@@ -69,12 +74,17 @@ const server=http.createServer((req,res)=>{
       assert.equal(new URL(page.url()).hash,'#galerie');
      }
      if(width===390){
-      const popupPromise=page.waitForEvent('popup');
-      await page.locator('.gallery--plans .gallery-image-link').first().click();
-      const popup=await popupPromise;
-      await popup.waitForLoadState('domcontentloaded');
-      assert.match(popup.url(),/zoja-extra\.webp$/);
-      await popup.close();
+      const plan=page.locator('.gallery--plans .gallery-image-link').first();
+      await plan.click();
+      const modal=page.locator('#zoja-lightbox');
+      assert.equal(await modal.evaluate(d=>d.open),true);
+      await page.screenshot({path:'C:/Projekty/Odruky-browser-qa/p3-zoja-lightbox-390.jpg',type:'jpeg',quality:80});
+      assert.match(await page.locator('#zoja-lightbox-image').getAttribute('src'),/zoja-extra\.webp$/);
+      await page.keyboard.press('ArrowRight');
+      assert.match(await page.locator('#zoja-lightbox-image').getAttribute('src'),/zoja-render-6\.webp$/);
+      await page.keyboard.press('Escape');
+      assert.equal(await modal.evaluate(d=>d.open),false);
+      assert.equal(await plan.evaluate(a=>document.activeElement===a),true);
      }
     }else{
      assert.equal(await page.locator('.catalog-item a').count(),5);
@@ -91,6 +101,40 @@ const server=http.createServer((req,res)=>{
     records.push({site:cfg.site,concept:cfg.concept,width,heroHeight:Math.round(info.hero.h),photoTop:Math.round(info.photo.y),photoHeight:Math.round(info.photo.h),images:info.visibleImgs});
     await page.close();
    }
+  }
+  // P3: complete Studio customer journey for each canonical product.
+  for(const width of [390,1280]){
+   const page=await browser.newPage({viewport:{width,height:860}}),errors=[];
+   page.on('pageerror',e=>errors.push(e.message));
+   for(const slug of ['stromove-domy','domecky','sauny','posedy','vceli-domy']){
+    await page.goto(base+'odruky/?concept=studio',{waitUntil:'domcontentloaded'});
+    const card=page.locator('.catalog-item a[href*="/odruky/'+slug+'/"]');
+    assert.equal(await card.count(),1,'studio catalogue missing '+slug);
+    assert.equal(new URL(await card.getAttribute('href')).searchParams.get('concept'),'studio','catalogue must keep concept '+slug);
+    await card.click();
+    assert.equal(new URL(page.url()).pathname,prefix+'odruky/'+slug+'/');
+    assert.equal(new URL(page.url()).searchParams.get('concept'),'studio','detail URL keeps concept '+slug);
+    assert.equal(await page.evaluate(()=>document.documentElement.dataset.concept),'studio','detail stylesheet bootstrapped '+slug);
+    const cover=page.locator('.product-cover');
+    assert.equal(await cover.count(),1);
+    assert.equal(await cover.isVisible(),true,'product cover rendered '+slug);
+    assert.equal(await page.locator('.detail-action-row a').count(),2);
+    if((slug==='stromove-domy'||slug==='vceli-domy')&&(width===390||width===1280)){
+     await page.screenshot({path:'C:/Projekty/Odruky-browser-qa/p3-odruky-'+slug+'-'+width+'.jpg',type:'jpeg',quality:78,fullPage:false});
+    }
+    assert.equal(await page.locator('.gallery-item').count()>=1,true,'gallery content preserved '+slug);
+    assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth-innerWidth)<=1,true,'overflow '+slug+'/'+width);
+    const jump=slug==='vceli-domy'?'#podrobnosti':'#gallery';
+    await page.locator('.detail-action-row a[href="'+jump+'"]').click();
+    assert.equal(new URL(page.url()).hash,jump,'honest product detail jump '+slug);
+    await page.locator('.detail-action-row a[href*="/kontakt/"]').click();
+    assert.equal(new URL(page.url()).pathname,prefix+'odruky/kontakt/');
+    assert.equal(new URL(page.url()).searchParams.get('concept'),'studio','inquiry keeps design '+slug);
+    assert.equal(new URL(page.url()).searchParams.get('produkt'),slug,'inquiry keeps product '+slug);
+    assert.equal(await page.locator('.contact-intent').count()>=1,true,'selected intent rendered '+slug);
+   }
+   assert.deepEqual(errors,[],'P3 studio user journey '+width);
+   await page.close();
   }
   for(const site of ['odruky','zoja']){
    const page=await browser.newPage();

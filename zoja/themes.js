@@ -31,3 +31,60 @@ if(mobileMenu){
  mobileMenu.addEventListener('keydown',event=>{if(event.key==='Escape'&&mobileMenu.open){mobileMenu.open=false;mobileMenu.querySelector('summary').focus()}});
 }
 })();
+
+/* P3 enhancement: in-page gallery lightbox. Original links remain valid if JS is off. */
+(()=>{
+'use strict';
+const dialog=document.querySelector('#zoja-lightbox');
+const links=Array.from(document.querySelectorAll('.gallery-image-link'));
+if(!dialog||links.length===0||typeof dialog.showModal!=='function')return;
+const image=dialog.querySelector('#zoja-lightbox-image');
+const title=dialog.querySelector('#zoja-lightbox-title');
+const group=dialog.querySelector('#zoja-lightbox-group');
+const counter=dialog.querySelector('#zoja-lightbox-counter');
+const original=dialog.querySelector('#zoja-lightbox-original');
+const prev=dialog.querySelector('#zoja-lightbox-prev');
+const next=dialog.querySelector('#zoja-lightbox-next');
+const close=dialog.querySelector('#zoja-lightbox-close');
+if(!image||!title||!group||!counter||!original||!prev||!next||!close)return;
+let index=0,focusBefore=null;
+function render(){
+ const anchor=links[index];
+ const caption=anchor.closest('figure')?.querySelector('figcaption')?.textContent.trim()||'Fotografie Zoja';
+ const section=anchor.closest('.gallery-group')?.querySelector('h3')?.textContent.trim()||'Galerie';
+ image.src=anchor.href;
+ original.href=anchor.href;
+ image.alt=anchor.querySelector('img')?.alt||caption;
+ title.textContent=caption;
+ group.textContent=section;
+ counter.textContent='Obrázek '+(index+1)+' z '+links.length;
+ prev.disabled=index===0;
+ next.disabled=index===links.length-1;
+}
+function open(i,anchor){
+ if(dialog.open)return;
+ index=i;focusBefore=anchor;render();dialog.showModal();close.focus();
+}
+function move(delta){
+ const to=index+delta;
+ if(to<0||to>=links.length)return;
+ index=to;render();
+}
+links.forEach((anchor,i)=>anchor.addEventListener('click',event=>{
+ if(event.defaultPrevented||event.button!==0||event.ctrlKey||event.metaKey||event.shiftKey||event.altKey)return;
+ event.preventDefault();
+ open(i,anchor);
+}));
+prev.addEventListener('click',()=>move(-1));
+next.addEventListener('click',()=>move(1));
+close.addEventListener('click',()=>dialog.close());
+dialog.addEventListener('keydown',event=>{
+ if(event.key==='ArrowLeft'){event.preventDefault();move(-1)}
+ if(event.key==='ArrowRight'){event.preventDefault();move(1)}
+});
+dialog.addEventListener('close',()=>{
+ image.removeAttribute('src');
+ focusBefore?.focus({preventScroll:true});
+ focusBefore=null;
+});
+})();

@@ -27,10 +27,15 @@ const ROOT=new URL('./', document.currentScript.src);
 const MEDIA=new URL('media/',ROOT).href;
 const mayDisplayPhoto=D.config.mediaMode==='private-preview'||D.config.mediaMode==='approved';
 const route=(u)=>{
- if(location.protocol!=='file:')return new URL(u.slice(1),ROOT).href;
- const target=new URL(u,'https://odruky.invalid');
- const local=target.pathname==='/'?'index.html':target.pathname.replace(/^\/+|\/+$/g,'')+'/index.html';
- return new URL(local+target.search+target.hash,ROOT).href;
+ let url;
+ if(location.protocol!=='file:')url=new URL(u.slice(1),ROOT);
+ else{
+  const target=new URL(u,'https://odruky.invalid');
+  const local=target.pathname==='/'?'index.html':target.pathname.replace(/^\/+|\/+$/g,'')+'/index.html';
+  url=new URL(local+target.search+target.hash,ROOT);
+ }
+ if(document.documentElement.dataset.concept==='studio'&&url.pathname.startsWith(ROOT.pathname))url.searchParams.set('concept','studio');
+ return url.href;
 };
 const current=document.body.dataset.page||'home';
 const category=D.categories.find(x=>x.slug===current);
@@ -81,9 +86,9 @@ function detail(c){
  const slides=c.gallery.map((s,i)=>`<button class="gallery-item" data-slide="${i}" aria-label="Otevřít obrázek ${i+1} z ${c.gallery.length}: ${esc(s.title)}">${imageTag(s.image,s.title+' – zákaznický obrazový podklad')}<span>${esc(s.title)}</span><small>${s.image ? `Zákaznický podklad ${esc(s.source)} · otevřený náhled` : `Pracovní koncept · obrazový podklad skryt`}</small></button>`).join('');
  const topics=c.topics.map(s=>`<li>${esc(s)}</li>`).join('');
  const faqs=c.faq.map(([q,a])=>`<details class="faq-item"><summary>${esc(q)}</summary><p>${esc(a)}</p></details>`).join('');
- return `<main id="main"><section class="detail-hero"><div class="container"><nav class="breadcrumb" aria-label="Drobečková navigace">${link('/','Úvod')} <span aria-hidden="true">/</span> ${esc(c.name)}</nav><p class="eyebrow">Tvorba ze dřeva na míru / ${esc(c.name)}</p><h1>${esc(c.heading)}</h1><p>${esc(c.intro)}</p></div></section><section class="gallery-section"><div class="container"><div class="gallery-controls"><p class="eyebrow">Podoby vašeho projektu / fotografie</p><div class="gallery-buttons"><button type="button" id="gallery-prev" aria-label="Posunout galerii vlevo">←</button><button type="button" id="gallery-pause" aria-pressed="false">Pozastavit pohyb</button><button type="button" id="gallery-next" aria-label="Posunout galerii vpravo">→</button></div></div><div class="gallery" id="gallery" aria-label="Fotografie – ${esc(c.name)}">${slides}</div><p class="subtle muted">Dostupné fotografie byly schváleny pro veřejné zobrazení zadavatelem. Část původních souborů dosud chybí; nejde o finální produkční katalog.</p></div></section>
+ return `<main id="main"><section class="detail-hero"><div class="container detail-hero-grid"><div class="detail-copy"><nav class="breadcrumb" aria-label="Drobečková navigace">${link('/','Úvod')} <span aria-hidden="true">/</span> ${esc(c.name)}</nav><p class="eyebrow">Tvorba ze dřeva na míru / ${esc(c.name)}</p><h1>${esc(c.heading)}</h1><p>${esc(c.intro)}</p>${document.documentElement.dataset.concept==='studio'?`<div class="detail-action-row">${c.gallery.some(s=>s.image)?'<a class="button button-green" href="#gallery">Prohlédnout fotografie ↓</a>':'<a class="button button-green" href="#podrobnosti">Jak stavbu navrhnout ↓</a>'}${link(inquiryHref(c.slug),'Nezávazně poptat →','button button-outline')}</div>`:''}</div>${document.documentElement.dataset.concept==='studio'?`<figure class="product-cover">${imageTag(c.image,c.name+' — úvodní fotografie z dodaných podkladů')}<figcaption>${c.image?'Fotografie z pracovního náhledu':'Obrazový podklad zatím není k dispozici'} · ${esc(c.name)}</figcaption></figure>`:''}</div></section><section class="gallery-section"><div class="container"><div class="gallery-controls"><p class="eyebrow">Podoby vašeho projektu / fotografie</p><div class="gallery-buttons"><button type="button" id="gallery-prev" aria-label="Posunout galerii vlevo">←</button><button type="button" id="gallery-pause" aria-pressed="false">Pozastavit pohyb</button><button type="button" id="gallery-next" aria-label="Posunout galerii vpravo">→</button></div></div><div class="gallery" id="gallery" aria-label="Fotografie – ${esc(c.name)}">${slides}</div><p class="subtle muted">Dostupné fotografie byly schváleny pro veřejné zobrazení zadavatelem. Část původních souborů dosud chybí; nejde o finální produkční katalog.</p></div></section>
  ${c.slug==='vceli-domy'?`<section class="section bee-poster"><div class="container"><p class="eyebrow">Samostatný plakát F12</p><h2>Koncept včelího domu</h2>${imageTag(null,'Podklad F12 dosud nebyl dodán') }<p class="subtle">Plakát není náhledem na homepage ani položkou automatického pásu.</p></div></section>`:''}
- <section class="section detail-info"><div class="container info-grid"><div><p class="eyebrow">Co společně upřesníme</p><h2>Každý prostor začíná zadáním.</h2><ul>${topics}</ul><div style="margin-top:30px">${link(inquiryHref(c.slug),esc(c.cta)+' →','button button-green')}</div></div><div><p class="eyebrow">Časté dotazy</p><div class="faqs">${faqs}</div></div></div></section>${contactContent()}</main>`;
+ <section class="section detail-info" id="podrobnosti"><div class="container info-grid"><div><p class="eyebrow">Co společně upřesníme</p><h2>Každý prostor začíná zadáním.</h2><ul>${topics}</ul><div style="margin-top:30px">${link(inquiryHref(c.slug),esc(c.cta)+' →','button button-green')}</div></div><div><p class="eyebrow">Časté dotazy</p><div class="faqs">${faqs}</div></div></div></section>${contactContent()}</main>`;
 }
 function otherPage(){
  const data={
