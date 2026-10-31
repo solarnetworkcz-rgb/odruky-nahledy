@@ -232,3 +232,170 @@
  .catalog-copy-top h3{min-width:0;overflow-wrap:anywhere}
  .hero-feature-label,.hero-feature-label strong,.hero-feature-label a{min-width:0;max-width:100%;overflow-wrap:anywhere}
 }
+
+/* V8 ARCHITECTURAL THEME OVERRIDES — three structurally distinct alternatives.
+   B remains the original Moderni harmonie reference. All variants share approved images and product content. */
+/* A: Atelier v prirode — airy botanical editorial, oversized serif and masonry offer. */
+:root[data-theme=a]{--forest:#284a38;--deep:#1c3328;--ivory:#fbf9f0;--sand:#ece8d8;--walnut:#846b4f;--bronze:#ac8862;--ink:#243c2d;--muted:#4b6756;--line:#d5cfbb;--display:Georgia,'Times New Roman',serif;--sans:Arial,Helvetica,sans-serif}
+[data-theme=a] .brand-block{background:#f8f6ed;padding:75px 0 45px;border-top:9px solid #b39b75}
+[data-theme=a] .brand-block h1{font-size:clamp(82px,14vw,216px);font-style:italic;font-weight:400;letter-spacing:-.095em;color:#2a4c38}
+[data-theme=a] .brand-block::after{content:'ATELIÉR  /  PŘÍRODA  /  DŘEVO';font:700 10px var(--sans);letter-spacing:.27em;border-top:1px solid #b2a48a;padding-top:16px}
+[data-theme=a] .hero-story{background:#e8eee1;color:#263e30;padding:66px 0 100px}
+[data-theme=a] .hero-layout{display:grid;grid-template-columns:minmax(0,.76fr) minmax(0,1.24fr);gap:clamp(25px,5vw,82px);align-items:center}
+[data-theme=a] .hero-story h2{font:italic 400 clamp(44px,5.4vw,85px)/1.02 Georgia,serif;letter-spacing:-.06em;color:#203e2e}
+[data-theme=a] .hero-story p:not(.eyebrow){max-width:450px}
+[data-theme=a] .hero-story .button-ivory{background:#254936;color:#fff}
+[data-theme=a] .hero-story .button-outline{border-color:#254936;color:#254936}
+[data-theme=a] .hero-photo{padding:12px;background:#fff;box-shadow:20px 25px 0 #b9c7b3}
+[data-theme=a] .hero-photo figcaption{color:#284a38}
+[data-theme=a] .hero-photo figcaption small{color:#4d6255}
+[data-theme=a] .offer{background:#fbf9f0}
+[data-theme=a] .offer-title h2{font-style:italic}
+[data-theme=a] .catalog{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:40px 24px}
+[data-theme=a] .catalog-item{grid-column:span 6;border:0;border-bottom:1px solid #acb4a2;padding:0 0 18px;background:transparent;box-shadow:none}
+[data-theme=a] .catalog-item-featured{grid-column:1/-1}
+[data-theme=a] .catalog-item-featured>a{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,.6fr);gap:32px}
+[data-theme=a] .catalog-item:nth-child(4){grid-column:span 8}
+[data-theme=a] .catalog-item:nth-child(5){grid-column:span 4}
+[data-theme=a] .catalog-copy-top h3{font:400 clamp(24px,2.9vw,43px)/1.12 Georgia,serif}
+[data-theme=a] .catalog-item-featured .catalog-copy-top h3{font-size:clamp(36px,4vw,58px)}
+[data-theme=a] .catalog-item:hover .catalog-media img{filter:saturate(.92)}
+[data-theme=a] .editorial-break{background:#dce4d4;color:#2b4d39;border-top:1px solid #8ca48f;border-bottom:1px solid #8ca48f}
+[data-theme=a] .editorial-break p{text-align:center;font:italic clamp(31px,4vw,52px) Georgia,serif}
+[data-theme=a] .inverse{background:#234032}
+[data-theme=a] .steps-section{background:#ebe6d5}
+[data-theme=a] .detail-hero{background:#f8f5ea;border-top:4px solid #b6a080}
+[data-theme=a] .detail-hero h1{font-style:italic}
+[data-theme=a] .gallery-section{background:#f8f5ea}
+/* C: Truhlarska dilna — dark wood, copper, reversed split and asymmetric workshop cards. */
+:root[data-theme=c]{--forest:#70442f;--deep:#201712;--ivory:#f7eada;--sand:#e8d2bc;--walnut:#89543a;--bronze:#c48053;--ink:#332419;--muted:#675343;--line:#c6aa8c;--display:Impact,'Arial Narrow',Arial,sans-serif;--sans:Verdana,Arial,sans-serif}
+[data-theme=c] .site-header{background:#201712;border-bottom:4px solid #bc7549}
+[data-theme=c] .brand-block{background:#1c1511;color:#f5dac0;padding:72px 0 56px;border-bottom:8px solid #bc7549}
+[data-theme=c] .brand-block h1{font:900 clamp(77px,16vw,230px)/.8 Impact,'Arial Narrow',Arial,sans-serif;letter-spacing:-.067em;color:#efc69f}
+[data-theme=c] .brand-block .eyebrow{color:#dab58f}
+[data-theme=c] .brand-block::before{color:#d6a57f}
+[data-theme=c] .hero-story{background:#201713;color:#fff1e3;padding:0}
+[data-theme=c] .hero-layout{display:flex;flex-direction:row;gap:0;align-items:stretch;width:100%}
+[data-theme=c] .hero-layout>div:first-child{flex:0 1 43%;min-width:0;background:#513626;padding:clamp(35px,4vw,82px);display:flex;flex-direction:column;justify-content:center}
+[data-theme=c] .hero-photo{order:-1;flex:1 1 57%;min-width:0;margin:0;background:#1b1410;display:flex;flex-direction:column;justify-content:center}
+[data-theme=c] .hero-photo img{width:100%;height:auto;min-height:500px;max-height:800px;object-fit:cover}
+[data-theme=c] .hero-photo figcaption{padding:14px 25px 28px;color:#f1d1ae}
+[data-theme=c] .hero-story h2{font:900 clamp(38px,4.65vw,74px)/.99 Impact,'Arial Narrow',Arial,sans-serif;letter-spacing:-.028em;text-transform:uppercase;color:#fff3dd}
+[data-theme=c] .hero-story .button-ivory{background:#c47749;color:#1d1511}
+[data-theme=c] .hero-story .button-outline{border-color:#e7c2a1}
+[data-theme=c] .intro-grid{grid-template-columns:1fr 1fr;gap:48px}
+[data-theme=c] .intro-grid h2{font:800 clamp(35px,4.4vw,69px)/1.03 Impact,'Arial Narrow',Arial,sans-serif;text-transform:uppercase}
+[data-theme=c] .offer{background:#271e18;color:#f7e6d3}
+[data-theme=c] .offer-title{align-items:start}
+[data-theme=c] .offer-title h2{font:900 clamp(42px,5vw,79px)/1 Impact,'Arial Narrow',Arial,sans-serif;text-transform:uppercase;letter-spacing:-.035em}
+[data-theme=c] .catalog{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:15px}
+[data-theme=c] .catalog-item{grid-column:auto;background:#412f24;color:#f9e8d6;border:1px solid #986548;padding:13px;border-radius:0;box-shadow:none}
+[data-theme=c] .catalog-item-featured{grid-column:span 2}
+[data-theme=c] .catalog-item-featured>a{display:block}
+[data-theme=c] .catalog-item-featured .catalog-copy{padding:19px 0 10px}
+[data-theme=c] .catalog-item .catalog-copy-top h3{font:800 clamp(19px,2.6vw,34px)/1.08 Impact,'Arial Narrow',Arial,sans-serif;letter-spacing:.012em;text-transform:uppercase}
+[data-theme=c] .catalog-item-featured .catalog-copy-top h3{font-size:clamp(25px,3.4vw,49px)}
+[data-theme=c] .catalog-copy p{color:#f3d7c1}
+[data-theme=c] .catalog-note{color:#d5aa8b}
+[data-theme=c] .catalog-index{color:#ecbd8d;opacity:1}
+[data-theme=c] .editorial-break{background:#ba7149;color:#211814;padding:35px 0}
+[data-theme=c] .editorial-break p{text-align:left;font:900 clamp(35px,5vw,69px) Impact,'Arial Narrow',sans-serif;text-transform:uppercase;letter-spacing:-.02em}
+[data-theme=c] .inverse{background:#2c1e17}
+[data-theme=c] .principles{border-left:0;padding-left:0}
+[data-theme=c] .steps-section{background:#f0ddc9}
+[data-theme=c] .step strong{font-family:Impact,'Arial Narrow',Arial,sans-serif;font-weight:700}
+[data-theme=c] .contact-section{background:#4a2c20}
+[data-theme=c] .detail-hero{background:#281e19;color:#f4e0ce}
+[data-theme=c] .detail-hero h1{font-family:Impact,'Arial Narrow',Arial,sans-serif;text-transform:uppercase}
+[data-theme=c] .gallery-section{background:#f5e8dc}
+/* D: Technicky atlas — steel/white precision, inverted hero and twelve-column catalog. */
+:root[data-theme=d]{--forest:#31536a;--deep:#102b3a;--ivory:#f4f8fa;--sand:#e0ebef;--walnut:#688196;--bronze:#6396a9;--ink:#172d3b;--muted:#496473;--line:#bdcdd6;--display:'Segoe UI',Arial,sans-serif;--sans:'Segoe UI',Arial,sans-serif}
+[data-theme=d] .site-header{background:#102b3a;border-bottom:3px solid #4c8097}
+[data-theme=d] .brand-block{background:#e2edf2;color:#173544;border-top:1px solid #8faebd;padding:56px 0}
+[data-theme=d] .brand-block::after{content:'01 / PROJEKTY NA MÍRU';color:#3b6e85;font:700 12px 'Segoe UI',sans-serif;letter-spacing:.26em}
+[data-theme=d] .brand-block h1{font:900 clamp(67px,13vw,198px)/.87 'Segoe UI',Arial,sans-serif;letter-spacing:-.11em;color:#122f42}
+[data-theme=d] .hero-story{background:#f4f8fa;color:#172d3b;padding:25px 0 100px}
+[data-theme=d] .hero-layout{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,.65fr);grid-template-areas:"photo text";gap:0;align-items:stretch}
+[data-theme=d] .hero-layout>div:first-child{grid-area:text;min-width:0;background:#15394c;color:#fff;padding:clamp(22px,3.4vw,58px);display:flex;flex-direction:column;justify-content:center}
+[data-theme=d] .hero-photo{grid-area:photo;min-width:0;background:#bed1da;margin:0;display:flex;flex-direction:column;justify-content:center}
+[data-theme=d] .hero-photo img{width:100%;height:auto;object-fit:cover;max-height:760px}
+[data-theme=d] .hero-photo figcaption{padding:14px 22px 28px;color:#173244}
+[data-theme=d] .hero-photo figcaption small{color:#3d6374}
+[data-theme=d] .hero-story h2{font:800 clamp(35px,3.85vw,66px)/1.01 'Segoe UI',Arial,sans-serif;letter-spacing:-.07em;color:#fff}
+[data-theme=d] .hero-story .button-ivory{background:#bcd8e3;color:#163344}
+[data-theme=d] .hero-story .button-outline{border-color:#d8e7ee;color:#fff}
+[data-theme=d] .intro-grid{grid-template-columns:minmax(0,.56fr) minmax(0,1.44fr);border-left:7px solid #3b7086;padding-left:clamp(20px,3vw,50px)}
+[data-theme=d] .intro-grid h2{font:800 clamp(35px,5vw,75px)/1.05 'Segoe UI',Arial,sans-serif}
+[data-theme=d] .offer{background:#f2f6f8}
+[data-theme=d] .offer-title h2{font:800 clamp(38px,4.8vw,74px)/1.04 'Segoe UI',Arial,sans-serif}
+[data-theme=d] .catalog{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:12px}
+[data-theme=d] .catalog-item{grid-column:span 4;background:#fff;border:1px solid #b5cbd6;border-radius:0;padding:15px;box-shadow:none}
+[data-theme=d] .catalog-item-featured{grid-column:span 8}
+[data-theme=d] .catalog-item-featured>a{display:block}
+[data-theme=d] .catalog-item-featured .catalog-copy{padding:20px 0 10px}
+[data-theme=d] .catalog-item .catalog-copy-top h3{font:700 clamp(19px,2.2vw,29px)/1.13 'Segoe UI',Arial,sans-serif;text-transform:uppercase;letter-spacing:-.035em}
+[data-theme=d] .catalog-item-featured .catalog-copy-top h3{font-size:clamp(30px,3.6vw,55px)}
+[data-theme=d] .catalog-index{font:900 clamp(19px,2.5vw,31px) 'Segoe UI',sans-serif;color:#6190a8;opacity:1}
+[data-theme=d] .catalog-item::before{width:26px;height:26px;border-width:3px}
+[data-theme=d] .editorial-break{background:#102e40;color:#d4e7ef;padding:28px 0}
+[data-theme=d] .editorial-break p{font:700 clamp(24px,3.7vw,51px) 'Segoe UI',Arial,sans-serif;text-align:left;text-transform:uppercase}
+[data-theme=d] .inverse{background:#1d3f53}
+[data-theme=d] .steps-section{background:#dce9f0}
+[data-theme=d] .contact-section{background:#142e40}
+[data-theme=d] .detail-hero{background:#e8f2f6;border-top:5px solid #507e92}
+[data-theme=d] .detail-hero h1{font:800 clamp(39px,6vw,90px) 'Segoe UI',Arial,sans-serif}
+[data-theme=d] .gallery-section{background:#f4f8fa}
+[data-theme=d] .gallery-item{border:1px solid #afc3cf;padding:10px;background:#fff}
+/* Responsive: no horizontal overflow or inaccessible content at phone widths. */
+@media(max-width:1100px){
+ [data-theme=c] .hero-layout{display:grid;grid-template-columns:1fr;gap:0}
+ [data-theme=c] .hero-photo{order:0;grid-row:1;width:100%}
+ [data-theme=c] .hero-layout>div:first-child{grid-row:2;padding:36px}
+ [data-theme=c] .hero-photo img{min-height:0;max-height:540px;object-fit:contain}
+ [data-theme=d] .hero-layout{grid-template-columns:1fr;grid-template-areas:"photo" "text"}
+ [data-theme=d] .hero-photo img{max-height:550px;object-fit:contain}
+ [data-theme=d] .hero-layout>div:first-child{padding:36px}
+}
+@media(max-width:900px){
+ [data-theme=a] .hero-layout{grid-template-columns:1fr}
+ [data-theme=a] .hero-photo{box-shadow:11px 12px 0 #b9c7b3}
+ [data-theme=a] .catalog-item-featured>a{grid-template-columns:1fr}
+ [data-theme=a] .catalog-item{grid-column:span 6}
+ [data-theme=a] .catalog-item:nth-child(4),[data-theme=a] .catalog-item:nth-child(5){grid-column:span 6}
+ [data-theme=c] .catalog{grid-template-columns:repeat(2,minmax(0,1fr))}
+ [data-theme=c] .catalog-item-featured{grid-column:span 2}
+ [data-theme=d] .catalog-item{grid-column:span 6}
+ [data-theme=d] .catalog-item-featured{grid-column:span 12}
+}
+@media(max-width:720px){
+ [data-theme=a] .brand-block h1{font-size:clamp(50px,14vw,100px)}
+ [data-theme=a] .brand-block::after{letter-spacing:.12em}
+ [data-theme=a] .hero-story{padding:55px 0}
+ [data-theme=a] .hero-story h2{font-size:clamp(40px,9vw,69px)}
+ [data-theme=a] .catalog{grid-template-columns:1fr}
+ [data-theme=a] .catalog-item,[data-theme=a] .catalog-item:nth-child(4),[data-theme=a] .catalog-item:nth-child(5),[data-theme=a] .catalog-item-featured{grid-column:auto}
+ [data-theme=c] .brand-block h1{font-size:clamp(47px,13.5vw,95px)}
+ [data-theme=c] .hero-layout>div:first-child{padding:27px 20px}
+ [data-theme=c] .hero-story h2{font-size:clamp(36px,10vw,61px)}
+ [data-theme=c] .catalog{grid-template-columns:1fr}
+ [data-theme=c] .catalog-item,[data-theme=c] .catalog-item-featured{grid-column:auto}
+ [data-theme=c] .intro-grid{grid-template-columns:1fr}
+ [data-theme=c] .offer-title h2{font-size:clamp(38px,9vw,65px)}
+ [data-theme=d] .brand-block h1{font-size:clamp(49px,14vw,99px)}
+ [data-theme=d] .hero-layout>div:first-child{padding:28px 20px}
+ [data-theme=d] .hero-story h2{font-size:clamp(34px,8vw,65px)}
+ [data-theme=d] .catalog{grid-template-columns:1fr}
+ [data-theme=d] .catalog-item,[data-theme=d] .catalog-item-featured{grid-column:auto}
+ [data-theme=d] .intro-grid{grid-template-columns:1fr;padding-left:20px}
+}
+@media(max-width:360px){
+ [data-theme=a] .brand-block h1,[data-theme=c] .brand-block h1,[data-theme=d] .brand-block h1{font-size:clamp(40px,12vw,62px)}
+ [data-theme=c] .hero-story h2,[data-theme=d] .hero-story h2{font-size:35px}
+ [data-theme=c] .hero-actions,[data-theme=d] .hero-actions{align-items:stretch}
+}
+@media(prefers-reduced-motion:reduce){[data-theme=a] .catalog-item:hover .catalog-media img{filter:none}}
+
+/* V8 final specificity: legacy :root theme rules must not override the new hero treatments. */
+:root[data-theme=a] .hero-story{background:#e8eee1;color:#263e30}
+:root[data-theme=c] .hero-story{background:#201713;color:#fff1e3}
+:root[data-theme=d] .hero-story{background:#f4f8fa;color:#172d3b}

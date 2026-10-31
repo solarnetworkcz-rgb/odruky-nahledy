@@ -3,18 +3,19 @@
 'use strict';
 const D=window.ODRUKY;
 const themes=[
- {id:'a',name:'A · Přírodní elegance',note:'Světlá, vzdušná'},
+ {id:'a',name:'A · Ateliér v přírodě',note:'Světlý obrazový magazín'},
  {id:'b',name:'B · Moderní harmonie',note:'Střední zelené tóny'},
- {id:'c',name:'C · Teplý prémiový styl',note:'Medová a ořechová'},
- {id:'d',name:'D · Současný čistý styl',note:'Modrošedá a písková'}
+ {id:'c',name:'C · Řemeslná dílna',note:'Tmavé dřevo a měď'},
+ {id:'d',name:'D · Technický atlas',note:'Architektonická modrošedá'}
 ];
 const themePicker=()=>`<details class="theme-picker"><summary class="theme-summary"><span>Porovnat vzhled webu</span><strong class="theme-current">B · Moderní harmonie</strong><span class="theme-summary-chevron" aria-hidden="true">⌄</span></summary><div class="container theme-picker-inner"><div class="theme-picker-heading"><small>Čtyři grafické varianty stejného zákaznického obsahu</small></div><div class="theme-picker-options" role="group" aria-label="Vybrat grafickou verzi">${themes.map(t=>`<button type="button" class="theme-choice" data-theme-choice="${t.id}" aria-pressed="false"><span>${t.name}</span><small>${t.note}</small></button>`).join('')}</div></div></details>`;
-const setTheme=(id)=>{
+const setTheme=(id,share=false)=>{
  if(!themes.some(t=>t.id===id))id='b';
  document.documentElement.dataset.theme=id;
  const currentLabel=document.querySelector('.theme-current');if(currentLabel)currentLabel.textContent=themes.find(t=>t.id===id).name;
  document.querySelectorAll('[data-theme-choice]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.themeChoice===id)));
  try{localStorage.setItem('odruky-demo-theme',id)}catch{}
+ if(share){const u=new URL(location.href);u.searchParams.set('theme',id);try{history.replaceState(history.state,'',u.pathname+u.search+u.hash)}catch{}}
 };
 let initialTheme='b';
 try{initialTheme=localStorage.getItem('odruky-demo-theme')||'b'}catch{}
@@ -110,7 +111,7 @@ if(current==='home'&&location.hash&&location.hash!=='#top'){
  document.fonts?.ready?.then(alignInitialFragment);
 }
 window.addEventListener('hashchange',()=>requestAnimationFrame(alignInitialFragment));
-document.querySelectorAll('[data-theme-choice]').forEach(b=>b.addEventListener('click',()=>setTheme(b.dataset.themeChoice)));
+document.querySelectorAll('[data-theme-choice]').forEach(b=>b.addEventListener('click',()=>setTheme(b.dataset.themeChoice,true)));
 // Menu navigation, both click and keyboard. Escape closes menu without route change.
 const navToggle=$('#nav-toggle'),dropdown=$('#nav-dropdown');
 navToggle?.addEventListener('click',()=>{const open=navToggle.getAttribute('aria-expanded')==='true';navToggle.setAttribute('aria-expanded',String(!open));dropdown.hidden=open;});
