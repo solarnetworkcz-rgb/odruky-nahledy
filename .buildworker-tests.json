@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "toolchains": [
+    "Node"
+  ],
+  "channels": {
+    "FAST": [
+      "node --check odruky/app.js",
+      "node --test qa/p3-odruky.test.cjs qa/flagship.test.cjs odruky/design-variants.test.cjs"
+    ],
+    "FULL": [
+      "node --check odruky/app.js",
+      "node --test qa/p3-odruky.test.cjs qa/flagship.test.cjs odruky/design-variants.test.cjs",
+      "powershell.exe -NoLogo -NoProfile -NonInteractive -ExecutionPolicy Bypass -File qa/bwng-browser-runner.ps1"
+    ]
+  }
+}
