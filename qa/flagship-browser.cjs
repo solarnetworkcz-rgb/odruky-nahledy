@@ -56,7 +56,7 @@ const server=http.createServer((req,res)=>{
     assert.ok(info.photo.w>160&&info.photo.h>140,'hero photograph invisible '+cfg.site+'/'+width);
     assert.deepEqual(errors,[],cfg.site+' JS error '+width);
     assert.deepEqual(bad,[],cfg.site+' HTTP failure '+width);
-    const photoPath=path.join(outputDir,'flagship-'+cfg.site+'-'+width+'.jpg';
+    const photoPath=path.join(outputDir,'flagship-'+cfg.site+'-'+width+'.jpg');
     await page.screenshot({path:photoPath,type:'jpeg',quality:83,fullPage:false,timeout:15000});
     if(cfg.site==='zoja'){
      assert.equal(await page.locator('video').count(),1);
@@ -64,7 +64,7 @@ const server=http.createServer((req,res)=>{
      assert.equal(await page.locator('.practical-grid article').count(),3);
      if(width===390||width===1280){
        await page.locator('#prakticky').scrollIntoViewIfNeeded();
-       await page.screenshot({path:path.join(outputDir,'p3-zoja-practical-'+width+'.jpg',type:'jpeg',quality:78});
+       await page.screenshot({path:path.join(outputDir,'p3-zoja-practical-'+width+'.jpg'),type:'jpeg',quality:78});
      }
      if(width<=768){
       const menu=page.locator('nav .mobile-nav');
@@ -79,7 +79,7 @@ const server=http.createServer((req,res)=>{
       await plan.click();
       const modal=page.locator('#zoja-lightbox');
       assert.equal(await modal.evaluate(d=>d.open),true);
-      await page.screenshot({path:path.join(outputDir,'p3-zoja-lightbox-390.jpg',type:'jpeg',quality:80});
+      await page.screenshot({path:path.join(outputDir,'p3-zoja-lightbox-390.jpg'),type:'jpeg',quality:80});
       assert.match(await page.locator('#zoja-lightbox-image').getAttribute('src'),/zoja-extra\.webp$/);
       await page.keyboard.press('ArrowRight');
       assert.match(await page.locator('#zoja-lightbox-image').getAttribute('src'),/zoja-render-6\.webp$/);
@@ -97,7 +97,7 @@ const server=http.createServer((req,res)=>{
     if(width===390||width===1280){
       const detailSel=cfg.site==='odruky'?'#nabidka .catalog':'.gallery--interior';
       await page.locator(detailSel).scrollIntoViewIfNeeded();
-      await page.screenshot({path:path.join(outputDir,'flagship-'+cfg.site+'-'+width+'-detail.jpg',type:'jpeg',quality:77});
+      await page.screenshot({path:path.join(outputDir,'flagship-'+cfg.site+'-'+width+'-detail.jpg'),type:'jpeg',quality:77});
     }
     records.push({site:cfg.site,concept:cfg.concept,width,heroHeight:Math.round(info.hero.h),photoTop:Math.round(info.photo.y),photoHeight:Math.round(info.photo.h),images:info.visibleImgs});
     await page.close();
@@ -121,7 +121,7 @@ const server=http.createServer((req,res)=>{
     assert.equal(await cover.isVisible(),true,'product cover rendered '+slug);
     assert.equal(await page.locator('.detail-action-row a').count(),2);
     if((slug==='stromove-domy'||slug==='vceli-domy')&&(width===390||width===1280)){
-     await page.screenshot({path:path.join(outputDir,'p3-odruky-'+slug+'-'+width+'.jpg',type:'jpeg',quality:78,fullPage:false});
+     await page.screenshot({path:path.join(outputDir,'p3-odruky-'+slug+'-'+width+'.jpg'),type:'jpeg',quality:78,fullPage:false});
     }
     assert.equal(await page.locator('.gallery-item').count()>=1,true,'gallery content preserved '+slug);
     assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth-innerWidth)<=1,true,'overflow '+slug+'/'+width);
