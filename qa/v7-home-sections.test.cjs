@@ -10,7 +10,7 @@ test('V7 homepage contains selected-realizations layer between offer and about',
  const about=app.indexOf('id="o-nas"');
  assert.ok(offer>=0 && realiz>offer && about>realiz);
  assert.match(app,/href="[^"]*realizace\//);
- assert.match(app,/Vybran[^<]*realiz/i);
+ assert.match(app,/Možnosti vašeho projektu/i);
 });
 test('V7 homepage contains explicit custom-production layer and safe CTA',()=>{
  const custom=app.indexOf('id="zakazkova-vyroba"');
