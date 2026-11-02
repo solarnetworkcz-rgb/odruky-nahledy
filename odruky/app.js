@@ -60,7 +60,13 @@ const nav=()=>`<a class="skip" href="#main">Přeskočit na obsah</a>
 const status=()=>mayDisplayPhoto ? `<div class="status-strip"><div class="container"><p><strong>Pracovní zákaznický náhled</strong> · Některé fotografie a kontaktní údaje ještě čekají na doplnění.</p></div></div>` : `<div class="status-strip"><div class="container"><p><strong>Pracovní vizualizace V6.6</strong> · Obrazové podklady zůstávají publikačně uzamčené; kontaktní údaje čekají na ověření.</p></div></div>`;
 const footer=()=>`<footer class="site-footer"><div class="container"><div class="footer-grid"><div>${link('/','ODRUKY','wordmark')}<p>Zakázková práce se dřevem podle vašich představ.</p><p class="subtle">Provozní a identifikační údaje čekají na ověření</p></div><div><div class="eyebrow">Co tvoříme</div><nav class="footer-links" aria-label="Produkty">${categoriesLinks()}${link('/zakazkova-vyroba/','Zakázková výroba')}</nav></div><div><div class="eyebrow">Informace</div><nav class="footer-links" aria-label="Další stránky">${link('/o-nas/','O nás')}${link('/realizace/','Možnosti vašeho projektu')}${link('/kontakt/','Kontakt')}${link('/ochrana-osobnich-udaju/','Ochrana osobních údajů')}</nav></div></div><div class="footer-bottom"><span>© ODRUKY · Koncept V7 · otevřený fotografický náhled</span><span>Bez měření návštěvnosti a bez kontaktního formuláře</span></div></div></footer>`;
 const contactContent=()=>`<section id="kontakt" class="section contact-section"><div class="container contact-grid"><div><div class="eyebrow">Kontakt a nezávazná poptávka</div><h2>Začněme tím, co máte v hlavě.</h2>${selectedIntent?`<p class="contact-intent" role="status">Vybraný výrobek: <strong>${esc(selectedIntent.name)}</strong></p>`:''}<p>Pošlete nám svou představu. I jednoduchý náčrt může být dobrý začátek.</p></div><div class="contact-options"><div class="contact-option"><div><strong>Zavolat</strong>${phone()}</div><span aria-hidden="true">→</span></div><div class="contact-option"><div><strong>Napsat e-mail</strong>${mail()}</div><span aria-hidden="true">→</span></div><p class="subtle">Kontaktní údaje čekají na ověření. Žádný formulář ani údaje návštěvníka se zde neukládají.</p></div></div></section>`;
-const mediaDimensions={};
+const mediaDimensions={
+ F01:[1536,1024],F02:[1312,1199],F03:[1028,1530],F04:[1536,1024],F06:[1536,1024],
+ F08:[1121,1403],F09:[1028,1530],F13:[1536,1024],F14:[1138,1382],F16:[1028,1530],
+ F17:[1024,1536],F20:[1312,1199],F21:[1137,1383],F22:[1028,1530],F23:[1086,1448],
+ F25:[1536,1024],F27:[1080,1440],F28:[1200,1500],F29:[1200,900],F30:[1200,800],
+ F31:[1200,1500],F33:[749,1332],F34:[1199,1500]
+};
 function imageTag(image,alt,cl=''){
  if(!mayDisplayPhoto || !image) return `<div role="img" class="image-placeholder ${esc(cl)}" aria-label="${esc(alt)}"><span>Fotografie zatím není k dispozici</span></div>`;
  const dims=mediaDimensions[image.replace(/\.[^.]+$/,'')];
