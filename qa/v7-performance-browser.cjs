@@ -5,7 +5,7 @@ const {spawn}=require('node:child_process');
 const path=require('node:path');
 (async()=>{
  const root=path.resolve(__dirname,'..'),port=43120;
- const server=spawn(process.execPath,['-e',`require('http').createServer((q,s)=>{let p=require('path').join(process.argv[1],decodeURIComponent(q.url.split('?')[0]));if(require('fs').existsSync(p)&&require('fs').statSync(p).isDirectory())p=require('path').join(p,'index.html');require('fs').readFile(p,(e,b)=>{if(e){s.statusCode=404;return s.end()}s.end(b)})}).listen(process.argv[2])`,root,String(port)],{stdio:'ignore'});
+ const server=spawn(process.execPath,['-e',`require('http').createServer((q,s)=>{let p=require('path').join(process.argv[1],decodeURIComponent(q.url.split('?')[0]));if(require('fs').existsSync(p)&&require('fs').statSync(p).isDirectory())p=require('path').join(p,'index.html');require('fs').readFile(p,(e,b)=>{if(e){s.statusCode=404;return s.end()}const ext=require('path').extname(p),m={'.html':'text/html; charset=utf-8','.css':'text/css; charset=utf-8','.js':'application/javascript; charset=utf-8','.jpg':'image/jpeg','.webp':'image/webp'};if(m[ext])s.setHeader('content-type',m[ext]);s.end(b)})}).listen(process.argv[2])`,root,String(port)],{stdio:'ignore'});
  await new Promise(r=>setTimeout(r,500));const browser=await chromium.launch({headless:true});
  try{
   const p=await browser.newPage({viewport:{width:1440,height:900}});
