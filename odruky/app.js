@@ -26,6 +26,7 @@ document.documentElement.dataset.theme=themes.some(t=>t.id===initialTheme)?initi
 const ROOT=new URL('./', document.currentScript.src);
 const MEDIA=new URL('media/',ROOT).href;
 const mayDisplayPhoto=D.config.mediaMode==='private-preview'||D.config.mediaMode==='approved';
+const requestedConcept=new URLSearchParams(location.search).get('concept');
 const route=(u)=>{
  let url;
  if(location.protocol!=='file:')url=new URL(u.slice(1),ROOT);
@@ -34,7 +35,7 @@ const route=(u)=>{
   const local=target.pathname==='/'?'index.html':target.pathname.replace(/^\/+|\/+$/g,'')+'/index.html';
   url=new URL(local+target.search+target.hash,ROOT);
  }
- if(document.documentElement.dataset.concept==='studio'&&url.pathname.startsWith(ROOT.pathname))url.searchParams.set('concept','studio');
+ if(requestedConcept==='classic'&&url.pathname.startsWith(ROOT.pathname))url.searchParams.set('concept','classic');
  return url.href;
 };
 const current=document.body.dataset.page||'home';
