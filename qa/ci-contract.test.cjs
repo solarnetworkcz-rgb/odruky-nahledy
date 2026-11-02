@@ -13,6 +13,9 @@ const required=[
  'qa/single-demo-selector.test.cjs',
  'qa/odruky-a11y-layout.test.cjs',
  'qa/odruky-image-priority.test.cjs',
+ 'qa/v7-home-sections.test.cjs',
+ 'qa/v7-metadata.test.cjs',
+ 'qa/v7-contrast.test.cjs',
  'qa/ci-contract.test.cjs'
 ];
 test('BWNG FAST and FULL permanently execute every lightweight post-cutover regression',()=>{
