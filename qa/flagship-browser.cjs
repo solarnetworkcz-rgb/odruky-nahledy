@@ -27,7 +27,7 @@ const server=http.createServer((req,res)=>{
  const base='http://127.0.0.1:'+server.address().port+prefix;
  const browser=await chromium.launch({headless:true}),records=[];
  try{
-  for(const cfg of [{site:'odruky',concept:'studio',expectedImages:5,selector:'.catalog-item',count:5},{site:'zoja',concept:'retreat',expectedImages:16,selector:'.gallery-image-link',count:15}]){
+  for(const cfg of [{site:'odruky',concept:'studio',expectedImages:8,selector:'#nabidka .catalog-item',count:5},{site:'zoja',concept:'retreat',expectedImages:16,selector:'.gallery-image-link',count:15}]){
    for(const width of [320,390,768,1280,1440]){
     const page=await browser.newPage({viewport:{width,height:860}}),errors=[],bad=[];
     page.on('pageerror',e=>errors.push(e.message));
