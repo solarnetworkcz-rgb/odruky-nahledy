@@ -10,9 +10,11 @@ test('P3 studio concept loads before paint on all five product detail pages and 
   assert.match(page,/href="\.\.\/studio\.css"/,slug);
  }
 });
-test('P3 studio links keep the concept through category and inquiry navigation',()=>{
+test('P3 default Studio links stay clean while classic comparison can persist',()=>{
  const app=read('odruky/app.js');
- assert.match(app,/url\.searchParams\.set\('concept','studio'\)/);
+ assert.doesNotMatch(app,/url\.searchParams\.set\('concept','studio'\)/);
+ assert.match(app,/requestedConcept==='classic'/);
+ assert.match(app,/url\.searchParams\.set\('concept','classic'\)/);
  assert.match(app,/documentElement\.dataset\.concept==='studio'/);
  assert.match(app,/class="product-cover"/);
  assert.match(app,/class="detail-action-row"/);

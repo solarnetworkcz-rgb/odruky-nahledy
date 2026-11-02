@@ -108,13 +108,13 @@ const server=http.createServer((req,res)=>{
    const page=await browser.newPage({viewport:{width,height:860}}),errors=[];
    page.on('pageerror',e=>errors.push(e.message));
    for(const slug of ['stromove-domy','domecky','sauny','posedy','vceli-domy']){
-    await page.goto(base+'odruky/?concept=studio',{waitUntil:'domcontentloaded'});
+    await page.goto(base+'odruky/',{waitUntil:'domcontentloaded'});
     const card=page.locator('.catalog-item a[href*="/odruky/'+slug+'/"]');
     assert.equal(await card.count(),1,'studio catalogue missing '+slug);
-    assert.equal(new URL(await card.getAttribute('href')).searchParams.get('concept'),'studio','catalogue must keep concept '+slug);
+    assert.equal(new URL(await card.getAttribute('href')).searchParams.get('concept'),null,'default catalogue URL stays clean '+slug);
     await card.click();
     assert.equal(new URL(page.url()).pathname,prefix+'odruky/'+slug+'/');
-    assert.equal(new URL(page.url()).searchParams.get('concept'),'studio','detail URL keeps concept '+slug);
+    assert.equal(new URL(page.url()).searchParams.get('concept'),null,'default detail URL stays clean '+slug);
     assert.equal(await page.evaluate(()=>document.documentElement.dataset.concept),'studio','detail stylesheet bootstrapped '+slug);
     const cover=page.locator('.product-cover');
     assert.equal(await cover.count(),1);
@@ -130,7 +130,7 @@ const server=http.createServer((req,res)=>{
     assert.equal(new URL(page.url()).hash,jump,'honest product detail jump '+slug);
     await page.locator('.detail-action-row a[href*="/kontakt/"]').click();
     assert.equal(new URL(page.url()).pathname,prefix+'odruky/kontakt/');
-    assert.equal(new URL(page.url()).searchParams.get('concept'),'studio','inquiry keeps design '+slug);
+    assert.equal(new URL(page.url()).searchParams.get('concept'),null,'default inquiry URL stays clean '+slug);
     assert.equal(new URL(page.url()).searchParams.get('produkt'),slug,'inquiry keeps product '+slug);
     assert.equal(await page.locator('.contact-intent').count()>=1,true,'selected intent rendered '+slug);
    }
