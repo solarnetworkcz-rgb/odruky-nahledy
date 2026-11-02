@@ -121,6 +121,13 @@ function customProductionPage(){
  ${contactContent()}</main>`;
 }
 
+function contactPage(){
+ return `<main id="main">
+ <section class="section subpage-content"><div class="container"><p class="eyebrow">Odruky / kontakt</p><h1>Proberme váš projekt</h1><p>První zpráva nemusí být technické zadání. Stačí popsat, co chcete vytvořit a kde má projekt vzniknout.</p></div></section>
+ <section class="section custom-checklist"><div class="container intro-grid"><div><p class="eyebrow">Co poslat v první zprávě</p><h2>Stačí stručný začátek.</h2></div><div><ul><li>Typ projektu nebo vlastní představu.</li><li>Místo, kde má projekt vzniknout.</li><li>Zamýšlené využití a hlavní požadavky.</li><li>Orientační rozměry nebo prostorové omezení.</li><li>Jednoduchý náčrt nebo fotografii místa, pokud je máte k dispozici.</li></ul><p class="pending">Žádné údaje se v tomto pracovním náhledu neodesílají ani neukládají. Kontaktní formulář zde není aktivní.</p></div></div></section>
+ ${contactContent()}</main>`;
+}
+
 function otherPage(){
  const data={
  'o-nas':{title:'O nás',text:'Odruky vytváří dřevěné prostory podle individuálního zadání. Na začátku je rozhovor o místě, využití a vašich představách. Potvrzený příběh firmy, tým a zkušenosti čekají na doplnění.'},
@@ -132,7 +139,7 @@ function otherPage(){
  return `<main id="main"><section class="section subpage-content"><div class="container"><p class="eyebrow">Odruky / informace</p><h1>${esc(data.title)}</h1>${current==='kontakt'&&selectedIntent?`<p class="contact-intent" role="status">Vybraný výrobek: <strong>${esc(selectedIntent.name)}</strong></p>`:''}<p>${esc(data.text)}</p>${current==='ochrana-osobnich-udaju'?'<div class="pending">PRACOVNÍ STAV: Toto není finální právní dokument určený ke zveřejnění.</div>':''}${current==='kontakt'?'<p class="subtle">Níže najdete dostupné možnosti spojení. Kontakty čekají na ověření.</p>':`<p>${link(inquiryHref(current==='zakazkova-vyroba'?current:null),'Přejít na kontakt →','button button-green')}</p>`}</div></section>${contactContent()}</main>`;
 }
 const dialog=()=>`<dialog class="modal" id="lightbox" aria-labelledby="modal-title"><div class="modal-shell"><div class="modal-top"><h2 id="modal-title">Prohlížení fotografií</h2><button class="modal-close" id="modal-close" type="button" aria-label="Zavřít a zpět na úvod">Zavřít a zpět na úvod ✕</button></div><div class="modal-stage"><button class="modal-prev" type="button" id="modal-prev" aria-label="Předchozí fotografie">←</button><img id="modal-image" alt="" hidden><div id="modal-missing" class="modal-placeholder">Fotografie zatím nebyla dodána</div><button class="modal-next" type="button" id="modal-next" aria-label="Následující fotografie">→</button></div><div class="modal-caption"><h3 id="modal-image-title"></h3><p id="modal-desc"></p><p id="modal-counter" class="subtle"></p></div><div class="modal-footer"><button type="button" id="modal-gallery-close">Zpět do galerie</button></div></div></dialog>`;
-document.getElementById('app').innerHTML=nav()+status()+themePicker()+(category?detail(category):current==='home'?home():current==='realizace'?realizationsPage():current==='zakazkova-vyroba'?customProductionPage():otherPage())+footer()+(category?dialog():'');
+document.getElementById('app').innerHTML=nav()+status()+themePicker()+(category?detail(category):current==='home'?home():current==='realizace'?realizationsPage():current==='zakazkova-vyroba'?customProductionPage():current==='kontakt'?contactPage():otherPage())+footer()+(category?dialog():'');
 setTheme(initialTheme);
 const loadDeferredImage=img=>{const src=img.dataset.src;if(!src)return;img.src=src;delete img.dataset.src;};
 const deferredImages=[...document.querySelectorAll('img[data-src]')];
