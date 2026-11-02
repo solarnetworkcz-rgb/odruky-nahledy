@@ -37,7 +37,15 @@ const server=http.createServer((req,res)=>{
     const response=await page.goto(url,{waitUntil:'domcontentloaded',timeout:30000});
     assert.equal(response.status(),200,url);
     assert.equal(await page.evaluate(()=>document.documentElement.dataset.concept),cfg.concept,'early concept');
-    await page.evaluate(async()=>{await Promise.all([...document.images].map(async i=>{i.loading='eager';try{await i.decode()}catch{}}))});
+    if(cfg.site==='odruky'){
+      const loadingState=await page.evaluate(()=>({deferred:document.querySelectorAll('img[data-src]').length,eager:document.querySelectorAll('img[fetchpriority="high"][src]').length}));
+      assert.equal(loadingState.eager,1,'exactly one above-fold Odruky image is eager');
+      assert.ok(loadingState.deferred>=7,'below-fold Odruky images must be network-deferred');
+    }
+    await page.evaluate(async()=>{
+      document.querySelectorAll('img[data-src]').forEach(i=>{i.src=i.dataset.src;i.removeAttribute('data-src')});
+      await Promise.all([...document.images].map(async i=>{i.loading='eager';try{await i.decode()}catch{}}));
+    });
     const info=await page.evaluate(sel=>{
       const hero=document.querySelector('.hero')||document.querySelector('.hero-story'),photo=hero.querySelector('img');
       const rect=e=>{const r=e.getBoundingClientRect();return {x:r.x,y:r.y,w:r.width,h:r.height}};
