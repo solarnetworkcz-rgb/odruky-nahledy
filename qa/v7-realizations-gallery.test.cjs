@@ -10,8 +10,8 @@ test('V7 realizations page contains a real working gallery built from existing p
   assert.match(app,/id="realizace-galerie"/);
   for(const id of ['F04.jpg','F27.jpg','F20.jpg','F34.jpg']) assert.match(app,new RegExp(id.replace('.','\\.')));
   assert.match(app,/Pracovn[^<]*galer/i);
-  assert.match(app,/route\('\/stromove-domy\/'\)/);
-  assert.match(app,/route\('\/sauny\/'\)/);
+  assert.match(app,/href:'\/stromove-domy\/'/);
+  assert.match(app,/href:'\/sauny\/'/);
 });
 
 test('realizations page keeps evidence boundaries explicit',()=>{
