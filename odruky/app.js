@@ -111,6 +111,16 @@ function realizationsPage(){
  return `<main id="main"><section class="section subpage-content"><div class="container"><p class="eyebrow">Odruky / realizace</p><h1>Pracovní galerie</h1><h2>Výběr dostupných obrazových podkladů</h2><p>Výběr dostupných fotografií ukazuje různé typy dřevěných prostorů, které jsou v pracovním náhledu přiřazené k nabídce Odruky.</p><p class="pending">Jde o veřejný pracovní obrazový náhled; nejde o zákaznické reference ani produkční schválení fotografií pro finální web.</p><div class="catalog" id="realizace-galerie">${cards}</div></div></section>${contactContent()}</main>`;
 }
 
+function customProductionPage(){
+ const principles=D.principles.map((p,i)=>`<article class="principle"><h2>${esc(p.title)}</h2><p>${esc(p.description)}</p></article>`).join('');
+ const steps=D.steps.map((s,i)=>`<button type="button" class="step" aria-expanded="${i===0}" aria-controls="step-detail" data-step="${i}"><span class="step-n">0${i+1}</span><strong>${esc(s.title)}</strong></button>`).join('');
+ return `<main id="main">
+ <section class="section subpage-content"><div class="container"><p class="eyebrow">Odruky / zakázková výroba</p><h1>Zakázková výroba podle vašeho zadání</h1><p>Vedle pěti hlavních kategorií lze probrat i jiné dřevěné řešení. Konkrétní proveditelnost, rozsah a podobu je potřeba ověřit podle místa a zadání.</p><div class="principles">${principles}</div></div></section>
+ <section class="section steps-section" id="zakazkova-postup"><div class="container"><div class="steps-intro"><p class="eyebrow">Jak postupujeme</p><h2>Od první představy k upřesněnému zadání.</h2></div><div class="steps-list" role="group" aria-label="Čtyři kroky zakázkové výroby">${steps}</div><div class="step-detail" id="step-detail" aria-live="polite">${esc(D.steps[0].description)}</div></div></section>
+ <section class="section"><div class="container intro-grid"><div><p class="eyebrow">Co si připravit</p><h2>Stačí základní informace.</h2></div><div><ul><li>Místo, kde má projekt vzniknout.</li><li>Zamýšlené využití a to, co je pro vás důležité.</li><li>Orientační rozměry nebo prostorové omezení.</li><li>Představu o rozsahu další práce.</li></ul><p>${link(inquiryHref('zakazkova-vyroba'),'Probrat zakázkovou výrobu →','button button-green')}</p></div></div></section>
+ ${contactContent()}</main>`;
+}
+
 function otherPage(){
  const data={
  'o-nas':{title:'O nás',text:'Odruky vytváří dřevěné prostory podle individuálního zadání. Na začátku je rozhovor o místě, využití a vašich představách. Potvrzený příběh firmy, tým a zkušenosti čekají na doplnění.'},
@@ -122,7 +132,7 @@ function otherPage(){
  return `<main id="main"><section class="section subpage-content"><div class="container"><p class="eyebrow">Odruky / informace</p><h1>${esc(data.title)}</h1>${current==='kontakt'&&selectedIntent?`<p class="contact-intent" role="status">Vybraný výrobek: <strong>${esc(selectedIntent.name)}</strong></p>`:''}<p>${esc(data.text)}</p>${current==='ochrana-osobnich-udaju'?'<div class="pending">PRACOVNÍ STAV: Toto není finální právní dokument určený ke zveřejnění.</div>':''}${current==='kontakt'?'<p class="subtle">Níže najdete dostupné možnosti spojení. Kontakty čekají na ověření.</p>':`<p>${link(inquiryHref(current==='zakazkova-vyroba'?current:null),'Přejít na kontakt →','button button-green')}</p>`}</div></section>${contactContent()}</main>`;
 }
 const dialog=()=>`<dialog class="modal" id="lightbox" aria-labelledby="modal-title"><div class="modal-shell"><div class="modal-top"><h2 id="modal-title">Prohlížení fotografií</h2><button class="modal-close" id="modal-close" type="button" aria-label="Zavřít a zpět na úvod">Zavřít a zpět na úvod ✕</button></div><div class="modal-stage"><button class="modal-prev" type="button" id="modal-prev" aria-label="Předchozí fotografie">←</button><img id="modal-image" alt="" hidden><div id="modal-missing" class="modal-placeholder">Fotografie zatím nebyla dodána</div><button class="modal-next" type="button" id="modal-next" aria-label="Následující fotografie">→</button></div><div class="modal-caption"><h3 id="modal-image-title"></h3><p id="modal-desc"></p><p id="modal-counter" class="subtle"></p></div><div class="modal-footer"><button type="button" id="modal-gallery-close">Zpět do galerie</button></div></div></dialog>`;
-document.getElementById('app').innerHTML=nav()+status()+themePicker()+(category?detail(category):current==='home'?home():current==='realizace'?realizationsPage():otherPage())+footer()+(category?dialog():'');
+document.getElementById('app').innerHTML=nav()+status()+themePicker()+(category?detail(category):current==='home'?home():current==='realizace'?realizationsPage():current==='zakazkova-vyroba'?customProductionPage():otherPage())+footer()+(category?dialog():'');
 setTheme(initialTheme);
 const loadDeferredImage=img=>{const src=img.dataset.src;if(!src)return;img.src=src;delete img.dataset.src;};
 const deferredImages=[...document.querySelectorAll('img[data-src]')];
