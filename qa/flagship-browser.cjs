@@ -88,8 +88,8 @@ const server=http.createServer((req,res)=>{
       assert.equal(await plan.evaluate(a=>document.activeElement===a),true);
      }
     }else{
-     assert.equal(await page.locator('.catalog-item a').count(),5);
-     const href=await page.locator('.catalog-item a').first().getAttribute('href');
+     assert.equal(await page.locator('#nabidka .catalog-item a').count(),5);
+     const href=await page.locator('#nabidka .catalog-item a').first().getAttribute('href');
      assert.match(href,/stromove-domy/);
      assert.equal((await page.request.get(href)).status(),200,'product detail accessible');
      assert.equal(await page.getByRole('heading',{name:'ODRUKY',exact:true}).count(),1);
