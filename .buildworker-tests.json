@@ -6,12 +6,12 @@
   "channels": {
     "FAST": [
       "node --check odruky/app.js",
-      "node --test qa/p3-odruky.test.cjs qa/flagship.test.cjs odruky/design-variants.test.cjs",
+      "node --test qa/p3-odruky.test.cjs qa/flagship.test.cjs qa/zoja-default-redesign.test.cjs qa/odruky-default-studio.test.cjs qa/odruky-v6-current-contract.test.cjs qa/odruky-clean-urls.test.cjs qa/single-demo-selector.test.cjs qa/odruky-a11y-layout.test.cjs qa/odruky-image-priority.test.cjs qa/ci-contract.test.cjs odruky/design-variants.test.cjs",
       "node --test qa/media-readiness.test.cjs"
     ],
     "FULL": [
       "node --check odruky/app.js",
-      "node --test qa/p3-odruky.test.cjs qa/flagship.test.cjs odruky/design-variants.test.cjs",
+      "node --test qa/p3-odruky.test.cjs qa/flagship.test.cjs qa/zoja-default-redesign.test.cjs qa/odruky-default-studio.test.cjs qa/odruky-v6-current-contract.test.cjs qa/odruky-clean-urls.test.cjs qa/single-demo-selector.test.cjs qa/odruky-a11y-layout.test.cjs qa/odruky-image-priority.test.cjs qa/ci-contract.test.cjs odruky/design-variants.test.cjs",
       "node --test qa/media-readiness.test.cjs",
       "powershell.exe -NoLogo -NoProfile -NonInteractive -ExecutionPolicy Bypass -File qa/bwng-browser-runner.ps1"
     ]
