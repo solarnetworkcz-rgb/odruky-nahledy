@@ -9,7 +9,7 @@ const path=require('node:path');
  await new Promise(r=>setTimeout(r,500));
  const browser=await chromium.launch({headless:true});
  try{
-  const pages=['odruky/','odruky/stromove-domy/','odruky/domecky/','odruky/sauny/','odruky/posedy/','odruky/vceli-domy/','odruky/realizace/','odruky/zakazkova-vyroba/','odruky/o-nas/','odruky/kontakt/'];
+  const pages=['odruky/','odruky/stromove-domy/','odruky/domecky/','odruky/sauny/','odruky/posedy/','odruky/vceli-domy/','odruky/realizace/','odruky/zakazkova-vyroba/','odruky/o-nas/','odruky/kontakt/','odruky/ochrana-osobnich-udaju/'];
   for(const rel of pages){
    const p=await browser.newPage({viewport:{width:1280,height:900}});
    const errors=[];p.on('console',m=>{if(m.type()==='error')errors.push(m.text())});p.on('pageerror',e=>errors.push(e.message));
