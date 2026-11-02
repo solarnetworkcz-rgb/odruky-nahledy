@@ -21,6 +21,7 @@ const required=[
  'qa/v7-custom-production-page.test.cjs',
  'qa/v7-product-related-navigation.test.cjs',
  'qa/v7-realizations-gallery.test.cjs',
+ 'qa/v7-realization-truthfulness.test.cjs',
  'qa/ci-contract.test.cjs'
 ];
 test('BWNG FAST and FULL permanently execute every lightweight post-cutover regression',()=>{
