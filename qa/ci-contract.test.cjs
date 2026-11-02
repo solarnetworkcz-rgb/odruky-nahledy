@@ -16,6 +16,11 @@ const required=[
  'qa/v7-home-sections.test.cjs',
  'qa/v7-metadata.test.cjs',
  'qa/v7-contrast.test.cjs',
+ 'qa/v7-about-page.test.cjs',
+ 'qa/v7-contact-page.test.cjs',
+ 'qa/v7-custom-production-page.test.cjs',
+ 'qa/v7-product-related-navigation.test.cjs',
+ 'qa/v7-realizations-gallery.test.cjs',
  'qa/ci-contract.test.cjs'
 ];
 test('BWNG FAST and FULL permanently execute every lightweight post-cutover regression',()=>{
