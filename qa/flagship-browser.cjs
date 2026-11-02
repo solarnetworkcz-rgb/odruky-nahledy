@@ -147,6 +147,7 @@ const server=http.createServer((req,res)=>{
     assert.equal(new URL(page.url()).searchParams.get('concept'),null,'default detail URL stays clean '+slug);
     assert.equal(await page.evaluate(()=>document.documentElement.dataset.concept),'studio','detail stylesheet bootstrapped '+slug);
     const cover=page.locator('.product-cover');
+    await cover.waitFor({state:'visible',timeout:5000});
     assert.equal(await cover.count(),1);
     assert.equal(await cover.isVisible(),true,'product cover rendered '+slug);
     assert.equal(await page.locator('.detail-action-row a').count(),2);
