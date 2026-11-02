@@ -1,0 +1,34 @@
+'use strict';
+const test=require('node:test');
+const assert=require('node:assert/strict');
+const fs=require('node:fs');
+const path=require('node:path');
+const root=path.resolve(__dirname,'..');
+const read=p=>fs.readFileSync(path.join(root,p),'utf8');
+const studio=read('odruky/studio.css');
+const base=read('odruky/style.css');
+const retreat=read('zoja/retreat.css');
+const themes=read('zoja/themes.css');
+const hex=s=>{const m=s.match(/#([0-9a-f]{6})/i);if(!m)throw Error('hex missing');const h=m[1];return [0,2,4].map(i=>parseInt(h.slice(i,i+2),16))};
+const lin=v=>{v/=255;return v<=.03928?v/12.92:Math.pow((v+.055)/1.055,2.4)};
+const lum=c=>.2126*lin(c[0])+.7152*lin(c[1])+.0722*lin(c[2]);
+const ratio=(a,b)=>{const A=lum(a),B=lum(b);return (Math.max(A,B)+.05)/(Math.min(A,B)+.05)};
+const blend=(fg,bg,a)=>fg.map((v,i)=>Math.round(v*a+bg[i]*(1-a)));
+const rule=(css,needle)=>{const i=css.indexOf(needle);assert.ok(i>=0,'missing rule '+needle);const e=css.indexOf('}',i);return css.slice(i,e+1)};
+test('Studio catalogue indices meet 4.5:1 small-text contrast',()=>{
+ const body=rule(studio,':root[data-concept="studio"] body');
+ const bg=hex(body.match(/background:s*(#[0-9a-f]{6})/i)[1]);
+ const r=rule(studio,'.catalog-item .catalog-index');
+ const fg=hex(r.match(/color:s*(#[0-9a-f]{6})/i)[1]);
+ const explicit=/opacity:s*([\d.]+)/i.exec(r);
+ const baseOpacity=/opacity:s*([\d.]+)/i.exec(rule(base,'.catalog-index'));
+ const opacity=+(explicit?.[1]||baseOpacity?.[1]||1);
+ const effective=opacity<1?blend(fg,bg,opacity):fg;
+ assert.ok(ratio(effective,bg)>=4.5,'catalog index contrast '+ratio(effective,bg).toFixed(2));
+});
+test('Zoja practical eyebrow meets 4.5:1 small-text contrast',()=>{
+ const bg=hex(rule(themes,'.practical{').match(/background:s*(#[0-9a-f]{6})/i)[1]);
+ const specific=themes.includes('.practical .ey{')?rule(themes,'.practical .ey{'):rule(retreat,':root[data-concept="retreat"] .ey');
+ const fg=hex(specific.match(/color:s*(#[0-9a-f]{6})/i)[1]);
+ assert.ok(ratio(fg,bg)>=4.5,'practical eyebrow contrast '+ratio(fg,bg).toFixed(2));
+});
