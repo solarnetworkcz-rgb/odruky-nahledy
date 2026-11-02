@@ -111,6 +111,17 @@ const server=http.createServer((req,res)=>{
     await page.close();
    }
   }
+  // V7 performance: deferred photos must hydrate when they approach the viewport.
+  {
+   const page=await browser.newPage({viewport:{width:390,height:860}});
+   await page.goto(base+'odruky/',{waitUntil:'domcontentloaded'});
+   const deferred=page.locator('#nabidka img[data-src]').first();
+   assert.equal(await deferred.count(),1,'first below-fold product photo starts deferred');
+   await deferred.scrollIntoViewIfNeeded();
+   await page.waitForFunction(()=>{const i=document.querySelector('#nabidka img');return !!i?.getAttribute('src')&&i.naturalWidth>0},null,{timeout:5000});
+   assert.ok((await page.locator('#nabidka img').first().evaluate(i=>i.naturalWidth))>0,'deferred product photo hydrates near viewport');
+   await page.close();
+  }
   // V7 acceptance: 200% zoom equivalent viewport and reduced-motion behavior.
   {
    const page=await browser.newPage({viewport:{width:720,height:900}});
