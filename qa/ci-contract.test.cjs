@@ -16,6 +16,11 @@ const required=[
  'qa/v7-home-sections.test.cjs',
  'qa/v7-metadata.test.cjs',
  'qa/v7-contrast.test.cjs',
+ 'qa/v7-about-page.test.cjs',
+ 'qa/v7-contact-page.test.cjs',
+ 'qa/v7-custom-production-page.test.cjs',
+ 'qa/v7-product-related-navigation.test.cjs',
+ 'qa/v7-realizations-gallery.test.cjs',
  'qa/ci-contract.test.cjs'
 ];
 test('BWNG FAST and FULL permanently execute every lightweight post-cutover regression',()=>{
@@ -29,4 +34,9 @@ test('FULL retains the real browser gate while FAST remains lightweight',()=>{
  assert.ok(!fast.includes('bwng-browser-runner.ps1'));
  assert.ok(full.includes('bwng-browser-runner.ps1'));
  assert.ok(full.includes('media-readiness.test.cjs'));
+});
+
+test('generated browser QA screenshots never dirty a BWNG exact-source workspace',()=>{
+ const ignore=fs.readFileSync(path.join(root,'.gitignore'),'utf8');
+ assert.match(ignore,/(^|\r?\n)qa-artifacts\/(\r?\n|$)/);
 });
