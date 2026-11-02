@@ -4,3 +4,5 @@ test('BWNG FAST permanently runs lightweight privacy regression',()=>{assert.ok(
 test('BWNG FULL permanently runs rendered WCAG and performance gates',()=>{const s=cfg.channels.FULL.join('\n');assert.match(s,/v7-wcag-semantic-browser\.cjs/);assert.match(s,/v7-performance-browser\.cjs/)});
 
 test('BWNG FAST and FULL permanently run original-photo display regression',()=>{for(const ch of ['FAST','FULL'])assert.ok(cfg.channels[ch].some(x=>x.includes('v7-original-photo-display.test.cjs')),ch+' must run original-photo display regression')});
+
+test('BWNG FAST and FULL permanently run lightbox exit regression',()=>{for(const ch of ['FAST','FULL'])assert.ok(cfg.channels[ch].some(x=>x.includes('v7-lightbox-exit-contract.test.cjs')),ch+' must run lightbox exit regression')});
