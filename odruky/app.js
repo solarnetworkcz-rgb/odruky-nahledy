@@ -71,8 +71,10 @@ function imageTag(image,alt,cl='',priority=false){
  if(!mayDisplayPhoto || !image) return `<div role="img" class="image-placeholder ${esc(cl)}" aria-label="${esc(alt)}"><span>Fotografie zatím není k dispozici</span></div>`;
  const dims=mediaDimensions[image.replace(/\.[^.]+$/,'')];
  const intrinsic=dims?`width="${dims[0]}" height="${dims[1]}"`:'';
- const loading=priority?'eager':'lazy',fetchPriority=priority?'high':'auto';
- return `<img ${cl?`class="${cl}"`:''} ${intrinsic} src="${MEDIA}${esc(image)}" alt="${esc(alt)}" loading="${loading}" fetchpriority="${fetchPriority}" decoding="async">`;
+ const source=`${MEDIA}${esc(image)}`;
+ const sourceAttr=priority?`src="${source}"`:`data-src="${source}"`;
+ const loading=priority?'eager':'lazy',fetchPriority=priority?'high':'low';
+ return `<img ${cl?`class="${cl}"`:''} ${intrinsic} ${sourceAttr} alt="${esc(alt)}" loading="${loading}" fetchpriority="${fetchPriority}" decoding="async">`;
 }
 function home(){
  const cards=D.categories.map((c,i)=>`<article class="catalog-item ${i===0?'catalog-item-featured':''}"><a href="${route('/'+c.slug+'/')}" aria-label="${esc(c.name)} – otevřít stránku"><div class="catalog-media">${imageTag(c.image,c.name+' – zákaznická fotografie / otevřený náhled')}</div><div class="catalog-copy"><div class="catalog-copy-top"><span class="catalog-index">0${i+1}</span><h3>${esc(c.name)}</h3><span class="catalog-arrow" aria-hidden="true">↗</span></div><p>${esc(c.tagline)}</p><span class="catalog-note">Fotografický pracovní náhled</span></div></a></article>`).join('');
@@ -111,6 +113,16 @@ function otherPage(){
 const dialog=()=>`<dialog class="modal" id="lightbox" aria-labelledby="modal-title"><div class="modal-shell"><div class="modal-top"><h2 id="modal-title">Prohlížení fotografií</h2><button class="modal-close" id="modal-close" type="button" aria-label="Zavřít a zpět na úvod">Zavřít a zpět na úvod ✕</button></div><div class="modal-stage"><button class="modal-prev" type="button" id="modal-prev" aria-label="Předchozí fotografie">←</button><img id="modal-image" alt="" hidden><div id="modal-missing" class="modal-placeholder">Fotografie zatím nebyla dodána</div><button class="modal-next" type="button" id="modal-next" aria-label="Následující fotografie">→</button></div><div class="modal-caption"><h3 id="modal-image-title"></h3><p id="modal-desc"></p><p id="modal-counter" class="subtle"></p></div><div class="modal-footer"><button type="button" id="modal-gallery-close">Zpět do galerie</button></div></div></dialog>`;
 document.getElementById('app').innerHTML=nav()+status()+themePicker()+(category?detail(category):current==='home'?home():otherPage())+footer()+(category?dialog():'');
 setTheme(initialTheme);
+const loadDeferredImage=img=>{const src=img.dataset.src;if(!src)return;img.src=src;delete img.dataset.src;};
+const deferredImages=[...document.querySelectorAll('img[data-src]')];
+let deferredImageObserver=null;
+if(deferredImages.length){
+ if(typeof IntersectionObserver==='function'){
+  deferredImageObserver=new IntersectionObserver(entries=>{for(const entry of entries)if(entry.isIntersecting){loadDeferredImage(entry.target);deferredImageObserver.unobserve(entry.target)}},{rootMargin:'360px 0px',threshold:.01});
+  deferredImages.forEach(img=>deferredImageObserver.observe(img));
+ }else deferredImages.forEach(loadDeferredImage);
+}
+window.addEventListener('pagehide',()=>deferredImageObserver?.disconnect(),{once:true});
 // Anchor targets are inserted by JS; adjust the initial fragment after layout and font/image metrics settle.
 const alignInitialFragment=()=>{
  if(current!=='home')return;

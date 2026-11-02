@@ -37,7 +37,15 @@ const server=http.createServer((req,res)=>{
     const response=await page.goto(url,{waitUntil:'domcontentloaded',timeout:30000});
     assert.equal(response.status(),200,url);
     assert.equal(await page.evaluate(()=>document.documentElement.dataset.concept),cfg.concept,'early concept');
-    await page.evaluate(async()=>{await Promise.all([...document.images].map(async i=>{i.loading='eager';try{await i.decode()}catch{}}))});
+    if(cfg.site==='odruky'){
+      const loadingState=await page.evaluate(()=>({deferred:document.querySelectorAll('img[data-src]').length,eager:document.querySelectorAll('img[fetchpriority="high"][src]').length}));
+      assert.equal(loadingState.eager,1,'exactly one above-fold Odruky image is eager');
+      assert.ok(loadingState.deferred>=7,'below-fold Odruky images must be network-deferred');
+    }
+    await page.evaluate(async()=>{
+      document.querySelectorAll('img[data-src]').forEach(i=>{i.src=i.dataset.src;i.removeAttribute('data-src')});
+      await Promise.all([...document.images].map(async i=>{i.loading='eager';try{await i.decode()}catch{}}));
+    });
     const info=await page.evaluate(sel=>{
       const hero=document.querySelector('.hero')||document.querySelector('.hero-story'),photo=hero.querySelector('img');
       const rect=e=>{const r=e.getBoundingClientRect();return {x:r.x,y:r.y,w:r.width,h:r.height}};
@@ -102,6 +110,17 @@ const server=http.createServer((req,res)=>{
     records.push({site:cfg.site,concept:cfg.concept,width,heroHeight:Math.round(info.hero.h),photoTop:Math.round(info.photo.y),photoHeight:Math.round(info.photo.h),images:info.visibleImgs});
     await page.close();
    }
+  }
+  // V7 performance: deferred photos must hydrate when they approach the viewport.
+  {
+   const page=await browser.newPage({viewport:{width:390,height:860}});
+   await page.goto(base+'odruky/',{waitUntil:'domcontentloaded'});
+   const deferred=page.locator('#nabidka img[data-src]').first();
+   assert.equal(await deferred.count(),1,'first below-fold product photo starts deferred');
+   await deferred.scrollIntoViewIfNeeded();
+   await page.waitForFunction(()=>{const i=document.querySelector('#nabidka img');return !!i?.getAttribute('src')&&i.naturalWidth>0},null,{timeout:5000});
+   assert.ok((await page.locator('#nabidka img').first().evaluate(i=>i.naturalWidth))>0,'deferred product photo hydrates near viewport');
+   await page.close();
   }
   // V7 acceptance: 200% zoom equivalent viewport and reduced-motion behavior.
   {
