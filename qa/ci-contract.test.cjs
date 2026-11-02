@@ -38,5 +38,5 @@ test('FULL retains the real browser gate while FAST remains lightweight',()=>{
 
 test('generated browser QA screenshots never dirty a BWNG exact-source workspace',()=>{
  const ignore=fs.readFileSync(path.join(root,'.gitignore'),'utf8');
- assert.match(ignore,/(^|\n)qa-artifacts\/(\n|$)/);
+ assert.match(ignore,/(^|\r?\n)qa-artifacts\/(\r?\n|$)/);
 });
