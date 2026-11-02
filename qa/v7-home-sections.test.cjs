@@ -16,7 +16,7 @@ test('V7 homepage contains explicit custom-production layer and safe CTA',()=>{
  const custom=app.indexOf('id="zakazkova-vyroba"');
  const process=app.indexOf('id="postup"');
  assert.ok(custom>=0 && process>custom);
- assert.match(app,/href="[^"]*zakazkova-vyroba\//);
+ assert.match(app,/link\('\/zakazkova-vyroba\//);
  assert.match(app,/Zak[^<]*v[^<]*roba/i);
 });
 test('new homepage layers do not introduce unsupported commercial claims',()=>{
