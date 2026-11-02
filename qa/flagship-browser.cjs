@@ -133,6 +133,25 @@ const server=http.createServer((req,res)=>{
    assert.deepEqual(motion,[],'reduced motion must disable non-zero animation/transition durations');
    await page.close();
   }
+  // V7 WCAG AA contrast gate for known small-text surfaces.
+  {
+   const page=await browser.newPage({viewport:{width:1280,height:900}});
+   const contrast=async(selector,url)=>{
+    await page.goto(base+url,{waitUntil:'domcontentloaded'});
+    return page.locator(selector).first().evaluate(el=>{
+      const parse=s=>{const m=s.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)/);return m?[+m[1],+m[2],+m[3]]:null};
+      const L=v=>{v/=255;return v<=.03928?v/12.92:Math.pow((v+.055)/1.055,2.4)};
+      const lum=c=>.2126*L(c[0])+.7152*L(c[1])+.0722*L(c[2]);
+      const fg=parse(getComputedStyle(el).color);let n=el,bg=null;
+      while(n&&!bg){const raw=getComputedStyle(n).backgroundColor,c=parse(raw);if(c&&raw&&!/rgba\([^)]*,\s*0(?:\.0+)?\)$/.test(raw))bg=c;n=n.parentElement}
+      bg=bg||[255,255,255];const a=lum(fg),b=lum(bg);return (Math.max(a,b)+.05)/(Math.min(a,b)+.05);
+    });
+   };
+   assert.ok(await contrast('.detail-hero .eyebrow','odruky/domecky/')>=4.5,'detail eyebrow contrast must meet AA');
+   assert.ok(await contrast('.product-cover figcaption','odruky/domecky/')>=4.5,'product figcaption contrast must meet AA');
+   assert.ok(await contrast('.not-set','odruky/realizace/')>=4.5,'pending contact text contrast must meet AA');
+   await page.close();
+  }
   // P3: complete Studio customer journey for each canonical product.
   for(const width of [390,1280]){
    const page=await browser.newPage({viewport:{width,height:860}}),errors=[];

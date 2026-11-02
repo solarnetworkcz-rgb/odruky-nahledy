@@ -143,7 +143,7 @@
 :root[data-concept="studio"] .detail-hero-grid{display:grid;grid-template-columns:minmax(0,.94fr) minmax(0,1.06fr);gap:clamp(30px,5vw,85px);align-items:center}
 :root[data-concept="studio"] .detail-copy{min-width:0}
 :root[data-concept="studio"] .breadcrumb{margin-bottom:clamp(32px,4vw,65px);font:750 12px/1.7 'Segoe UI',Arial,sans-serif;letter-spacing:.05em;color:#526455}
-:root[data-concept="studio"] .detail-hero .eyebrow{font-size:11px;font-weight:800;letter-spacing:.16em;color:#6a765a}
+:root[data-concept="studio"] .detail-hero .eyebrow{font-size:11px;font-weight:800;letter-spacing:.16em;color:#556348}
 :root[data-concept="studio"] .detail-hero h1{font:400 clamp(48px,5.8vw,93px)/1.02 Georgia,serif;letter-spacing:-.07em;color:#213e2b;margin:19px 0 25px}
 :root[data-concept="studio"] .detail-copy>p:not(.eyebrow){font-size:clamp(17px,1.5vw,21px);line-height:1.75;color:#405647;max-width:620px}
 :root[data-concept="studio"] .detail-action-row{display:flex;flex-wrap:wrap;gap:12px;margin-top:32px}
@@ -152,7 +152,7 @@
 :root[data-concept="studio"] .product-cover{margin:0;min-width:0;align-self:stretch}
 :root[data-concept="studio"] .product-cover img{display:block;width:100%;height:clamp(370px,40vw,640px);object-fit:cover;aspect-ratio:auto}
 :root[data-concept="studio"] .product-cover .image-placeholder{height:clamp(350px,40vw,590px);background:#c9d4c1}
-:root[data-concept="studio"] .product-cover figcaption{font:750 11px/1.5 'Segoe UI',Arial,sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#697969;padding:16px 2px;border-top:1px solid #bcc8b8}
+:root[data-concept="studio"] .product-cover figcaption{font:750 11px/1.5 'Segoe UI',Arial,sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#526452;padding:16px 2px;border-top:1px solid #bcc8b8}
 :root[data-concept="studio"] .gallery-section{padding:65px 0 90px;background:#f6f5ed}
 :root[data-concept="studio"] .gallery-controls{border-bottom:1px solid #c0cbbd;padding-bottom:23px}
 :root[data-concept="studio"] .gallery-controls .eyebrow{font-weight:800;color:#586c59}
