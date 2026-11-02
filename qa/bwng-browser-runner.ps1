@@ -20,6 +20,8 @@ if([string]::IsNullOrWhiteSpace([string]$env:ODRUKY_QA_OUTPUT_DIR)){
 }
 Push-Location $repo
 try{
+  & node --test (Join-Path $PSScriptRoot 'preserved-pixels.test.cjs')
+  if($LASTEXITCODE -ne 0){throw ('Media pixel QA failed: exit '+$LASTEXITCODE)}
   & node $test
   if($LASTEXITCODE -ne 0){throw ('Browser QA failed: exit '+$LASTEXITCODE)}
 }finally{Pop-Location}
