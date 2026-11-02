@@ -128,3 +128,16 @@ test('an unexpected required-media purpose is rejected rather than silently igno
       mediaDir:dir}),/invalid purpose/i);
   }finally{fs.rmSync(dir,{recursive:true,force:true})}
 });
+
+
+test('BWNG FAST and FULL enforce source checks and FULL also verifies protected pixels',()=>{
+  const manifest=JSON.parse(fs.readFileSync(path.join(__dirname,'..','.buildworker-tests.json'),'utf8'));
+  const fast=manifest.channels.FAST.join('\n');
+  const full=manifest.channels.FULL.join('\n');
+  const runner=fs.readFileSync(path.join(__dirname,'bwng-browser-runner.ps1'),'utf8');
+  assert.match(fast,/node --test qa\/media-readiness\.test\.cjs/);
+  assert.match(full,/node --test qa\/media-readiness\.test\.cjs/);
+  assert.match(full,/qa\/bwng-browser-runner\.ps1/);
+  assert.match(runner,/node --test.*preserved-pixels\.test\.cjs/);
+  assert.match(runner,/Media pixel QA failed/);
+});
