@@ -30,3 +30,8 @@ test('FULL retains the real browser gate while FAST remains lightweight',()=>{
  assert.ok(full.includes('bwng-browser-runner.ps1'));
  assert.ok(full.includes('media-readiness.test.cjs'));
 });
+
+test('generated browser QA screenshots never dirty a BWNG exact-source workspace',()=>{
+ const ignore=fs.readFileSync(path.join(root,'.gitignore'),'utf8');
+ assert.match(ignore,/(^|\n)qa-artifacts\/(\n|$)/);
+});
