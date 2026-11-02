@@ -1,0 +1,175 @@
+{
+  "schemaVersion": 1,
+  "source": "current-customer-google-drive",
+  "verifiedAt": "2026-11-02",
+  "repository": "solarnetworkcz-rgb/odruky-nahledy",
+  "repoRef": "c62afa2b5c543606b75ae4acef21d7bb779cd66f",
+  "scope": "15 files whose current customer Drive bytes differ from historical V6 SHA-256",
+  "assets": [
+    {
+      "id": "F01",
+      "driveFileId": "1FTVRME7G5lujdLsoIktgN7-EwICCIB_w",
+      "driveTitle": "123E197E-4BD7-4ABF-89D5-184C8E126273.png",
+      "size": 609970,
+      "sha256": "9e1a4e3859106493478c6d6cefa83cf1886e17936574f37336a9f141f0b25205",
+      "gitBlobSha1": "56cf8d4b424c476e95897697263af4c62d8d804b",
+      "historicalV6Sha256": "a406dadd0ef179d6dff62f4150f538898249a79ac942426afe17d9200c258eb4",
+      "repoPath": "odruky/media/F01.jpg",
+      "status": "BYTE_IDENTICAL_TO_CURRENT_DRIVE"
+    },
+    {
+      "id": "F02",
+      "driveFileId": "1CT7hYgPM6lwz_cgw12eVOxWUIHh_O0kA",
+      "driveTitle": "1645BDAD-DB54-4F78-971A-B158F442DB9C.png",
+      "size": 665222,
+      "sha256": "67f75fb053e4e009a3d6cc855f62250ff0f9720aa3c9ed453c3c82ad537ff30d",
+      "gitBlobSha1": "cf3db9fd58ec34be50cbc170d7bc5106b60a6c2c",
+      "historicalV6Sha256": "ad7bf40ce2e32fdba35ac8c615d6e0f9a6b730f1f53dc06110ee0581222f4be3",
+      "repoPath": "odruky/media/F02.jpg",
+      "status": "BYTE_IDENTICAL_TO_CURRENT_DRIVE"
+    },
+    {
+      "id": "F03",
+      "driveFileId": "1H2gU0Q9_9qoT2hC8Snrvzyp2oypOw64O",
+      "driveTitle": "2AE4375D-80B4-4416-B505-0AF176ECE44D.png",
+      "size": 734784,
+      "sha256": "53f9bfedbabe83659fe97aeef0e807ea80cd6cec3f0a71dadf31b035a10d800e",
+      "gitBlobSha1": "e01be79a02a45a8264043cb1046558f6b4329d0f",
+      "historicalV6Sha256": "519256a0307fa7b25e0cae5371a9c5fa74878ada5eecc1f2a743a987d6feafb1",
+      "repoPath": "odruky/media/F03.jpg",
+      "status": "BYTE_IDENTICAL_TO_CURRENT_DRIVE"
+    },
+    {
+      "id": "F04",
+      "driveFileId": "1WL_Ir2_475VCzwekGNX4j2CEMl-UBHlU",
+      "driveTitle": "3B228254-224C-44D5-8C67-790451CF1A48.png",
+      "size": 899615,
+      "sha256": "a8309f620317cd6b0a8e3f5d3b9da336b434a097f19b96f36b8964732fe31a21",
+      "gitBlobSha1": "b787d153e214f6cc8d9414dae958fb075faf56a6",
+      "historicalV6Sha256": "0d1ebd52037999196a142752adca2c99c1ecbd9c2a00877de65871edbfad51cd",
+      "repoPath": "odruky/media/F04.jpg",
+      "status": "BYTE_IDENTICAL_TO_CURRENT_DRIVE"
+    },
+    {
+      "id": "F06",
+      "driveFileId": "119e5ph4nI7TlA299MPoLoXxqZh27o7I_",
+      "driveTitle": "5DBFEFEF-3024-4BD4-AD89-75A01B3B02DA.png",
+      "size": 649801,
+      "sha256": "914c581e94ea3056026c7d4696f38473c09827a60d38ebe2b805efe80bc0bffe",
+      "gitBlobSha1": "128c954afc29893393bee889923fc37773512667",
+      "historicalV6Sha256": "2b2ebd2d73e1a8fdaec1b10a9ff567327c0f6c427feba124d5354d4b45bbe7bc",
+      "repoPath": "odruky/media/F06.jpg",
+      "status": "BYTE_IDENTICAL_TO_CURRENT_DRIVE"
+    },
+    {
+      "id": "F09",
+      "driveFileId": "1jTskKCviZsD7XLOQ_UhNA2pIhLzBU82j",
+      "driveTitle": "66A063FB-52DC-4895-B842-C32CB79D3275.png",
+      "size": 946515,
+      "sha256": "6e12be78b70c5d2f721932b1fa6cf13c1ad05fa7653ae8058199e81467905193",
+      "gitBlobSha1": "641207627f05ff6c5eb8bbf003d9c5f4b463e425",
+      "historicalV6Sha256": "8584ff4440d995b048bb5e0d7c4276f30335dfb62f75fc4ad7df0962be698376",
+      "repoPath": "odruky/media/F09.jpg",
+      "status": "BYTE_IDENTICAL_TO_CURRENT_DRIVE"
+    },
+    {
+      "id": "F13",
+      "driveFileId": "1UCktBCGpiyyE6QbCvidMn3rg7Cqpl5gh",
+      "driveTitle": "7846C3EB-3810-467C-BF3B-D8CBCA08CAFA.png",
+      "size": 602882,
+      "sha256": "b0c8e9982f6eea1addb0079514b865a11f7aec436298d44c95e1d3397909fe4f",
+      "gitBlobSha1": "b97354dcd14ec8725c90c6e03989c67d28e8fdb7",
+      "historicalV6Sha256": "934d330fe403f8930afe38fd226365f50ff5d5bea67fbad78fb4264c17007b99",
+      "repoPath": "odruky/media/F13.jpg",
+      "status": "BYTE_IDENTICAL_TO_CURRENT_DRIVE"
+    },
+    {
+      "id": "F14",
+      "driveFileId": "1q02l7mUg0nWVSCC1FVkNupkkfOg1QaAZ",
+      "driveTitle": "7CC48E88-C9BD-4799-98C1-B04C13E72175.png",
+      "size": 573263,
+      "sha256": "605a5977b18f595a7d7056295eb0d8aecd03915911990f337ba8bb161b6f2b2f",
+      "gitBlobSha1": "a8ed04cba9500f0c112fcd545b27c58907d7540e",
+      "historicalV6Sha256": "13b8aaf4a76022bdf9c18f7176562e1a12d0bb1c52a2d7db2052b42ca237f413",
+      "repoPath": "odruky/media/F14.jpg",
+      "status": "BYTE_IDENTICAL_TO_CURRENT_DRIVE"
+    },
+    {
+      "id": "F16",
+      "driveFileId": "1cV4ue4od3XE_zMoMdPzLCIZ4y88vBm8U",
+      "driveTitle": "86F9F336-33D0-4B93-9C60-D72DE2EEB82B.png",
+      "size": 910826,
+      "sha256": "60c7157dffee5bfbbc572276ed1f42557fe1922f7582e6a3e97ca965f1a81654",
+      "gitBlobSha1": "985657aa31c4a68bbca7e7db9a83ff6fe2b784dc",
+      "historicalV6Sha256": "af4dc8b25f3ee248da3852e028d37b8d5ea8b6ddf44554f4d8a3195521f06145",
+      "repoPath": "odruky/media/F16.jpg",
+      "status": "BYTE_IDENTICAL_TO_CURRENT_DRIVE"
+    },
+    {
+      "id": "F17",
+      "driveFileId": "1SvI7Nf2C0wx_znlmgSZZMa3yqNswuIIW",
+      "driveTitle": "8B70F35C-D679-42CB-920C-AFC3A9A2272E.png",
+      "size": 398654,
+      "sha256": "fc92353da8259927ed7d0bbf6a761ed342f5b92469424fda95e3edf5eada4d37",
+      "gitBlobSha1": "8ff164e3e4bab9997d53191e6b70128e4b093045",
+      "historicalV6Sha256": "fd8d649d1ed7bb298db0bfebdb6bc75fe91f1c6d17fd724d0f030d642fd02a44",
+      "repoPath": "odruky/media/F17.jpg",
+      "status": "BYTE_IDENTICAL_TO_CURRENT_DRIVE"
+    },
+    {
+      "id": "F20",
+      "driveFileId": "1zXv-Q9nlxYUkSrSg1wgUnv6DEMudn9SX",
+      "driveTitle": "97B57158-C09B-4B02-A0C8-0801123B957D.png",
+      "size": 830363,
+      "sha256": "cfb7093b0bade2ba8a088fce4767fdfca3a595e64f3d65150135c0f27803efbb",
+      "gitBlobSha1": "ba95ec7936fd679a2cd18c7f56b0a94d75030341",
+      "historicalV6Sha256": "2504bd17137b91f2f9384e44d2697a9a82acca0a439572451b9efb4f32aa6306",
+      "repoPath": "odruky/media/F20.jpg",
+      "status": "BYTE_IDENTICAL_TO_CURRENT_DRIVE"
+    },
+    {
+      "id": "F21",
+      "driveFileId": "1HpeszL_itCmn68BRnEaWespEkJgZehAy",
+      "driveTitle": "AF24A990-CB2E-4B84-A1F5-81B6431B9C16.png",
+      "size": 523601,
+      "sha256": "949de8a9932637ad196d30a9a5bf827b489c8690907e2c68b0a4b2982ed3bbac",
+      "gitBlobSha1": "bf48522331064e99db479293147028cdd517821d",
+      "historicalV6Sha256": "cab52b06446abec3909e1f3621946d623e87efeeb9b999ed638f4e1a2eb108fe",
+      "repoPath": "odruky/media/F21.jpg",
+      "status": "BYTE_IDENTICAL_TO_CURRENT_DRIVE"
+    },
+    {
+      "id": "F22",
+      "driveFileId": "13gIqPTbLndHQkeRCilDq3ZsHrmTfAbTn",
+      "driveTitle": "C132AEA1-4548-4D46-BCC7-62E86F40DAAD.png",
+      "size": 881890,
+      "sha256": "73955d864c95492c7377d2d42fc436e2457b7b9f3ca6cca6c32f338ce51ee238",
+      "gitBlobSha1": "018498fa90984f1f2fe3a3e45cb3a40740d8e5e4",
+      "historicalV6Sha256": "7ce4029445423631cf59838655ff7ef8dfd8841397d9bf4854c60d88a71ab086",
+      "repoPath": "odruky/media/F22.jpg",
+      "status": "BYTE_IDENTICAL_TO_CURRENT_DRIVE"
+    },
+    {
+      "id": "F23",
+      "driveFileId": "1ibOCrGpK7gLqcAH7TVSMzlSlUCQW52vE",
+      "driveTitle": "D4C45FA4-B1A7-4409-B5C8-6E18AF359330.png",
+      "size": 613262,
+      "sha256": "c0ee10ce0eab8eecfbcf1bdf105c1fc0237d0aeaca21fe5616d468109e8a42ad",
+      "gitBlobSha1": "0998051ad7883fafdbf7feeb98bb2a3aa4fb5fc3",
+      "historicalV6Sha256": "04b4df0c1439f7e46a06ddb1d19d92c9c2318127eaa10489574b7a44709c1ff2",
+      "repoPath": "odruky/media/F23.jpg",
+      "status": "BYTE_IDENTICAL_TO_CURRENT_DRIVE"
+    },
+    {
+      "id": "F25",
+      "driveFileId": "1dyLEkttVOvx2DBjkdeeNTVQrwd2b6ljP",
+      "driveTitle": "F0B9D4E5-7ADC-4B74-BB5B-EDC8C42D8C0B.png",
+      "size": 783134,
+      "sha256": "baf56515d89b2dc41737a52e16e030e6215f89605fd10c892239a2fb92d6b3c1",
+      "gitBlobSha1": "b4ae61f85efaf8b74f5b712f10a8f43b36ef3818",
+      "historicalV6Sha256": "cce9cbf64bd5554aef3cea0a38d27885b4cede758f8ebc6d9f4f68f1c91bfd1b",
+      "repoPath": "odruky/media/F25.jpg",
+      "status": "BYTE_IDENTICAL_TO_CURRENT_DRIVE"
+    }
+  ]
+}
