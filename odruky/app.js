@@ -100,6 +100,17 @@ function detail(c){
  ${c.slug==='vceli-domy'?`<section class="section bee-poster"><div class="container"><p class="eyebrow">Samostatný plakát F12</p><h2>Koncept včelího domu</h2>${imageTag(null,'Podklad F12 dosud nebyl dodán') }<p class="subtle">Plakát není náhledem na homepage ani položkou automatického pásu.</p></div></section>`:''}
  <section class="section detail-info" id="podrobnosti"><div class="container info-grid"><div><p class="eyebrow">Co společně upřesníme</p><h2>Každý prostor začíná zadáním.</h2><ul>${topics}</ul><div style="margin-top:30px">${link(inquiryHref(c.slug),esc(c.cta)+' →','button button-green')}</div></div><div><p class="eyebrow">Časté dotazy</p><div class="faqs">${faqs}</div></div></div></section>${contactContent()}</main>`;
 }
+function realizationsPage(){
+ const items=[
+  {image:'F04.jpg',title:'Stromový dům mezi stromy',text:'Prosklení, terasa a vztah stavby k lesnímu místu.',href:'/stromove-domy/'},
+  {image:'F27.jpg',title:'Sauna s výhledem do lesa',text:'Interiér, lavice a velké okno směrem do okolní krajiny.',href:'/sauny/'},
+  {image:'F20.jpg',title:'Vyvýšený dřevěný prostor',text:'Stavba nad terénem a jiná perspektiva místa.',href:'/posedy/'},
+  {image:'F34.jpg',title:'Domeček s pobytovou terasou',text:'Kompaktní dřevěný prostor propojený s venkovním místem.',href:'/domecky/'}
+ ];
+ const cards=items.map((x,i)=>`<article class="catalog-item"><a href="${route(x.href)}"><div class="catalog-media">${imageTag(x.image,x.title+' – zákaznický obrazový podklad / pracovní náhled')}</div><div class="catalog-copy"><div class="catalog-copy-top"><span class="catalog-index">0${i+1}</span><h2>${esc(x.title)}</h2><span class="catalog-arrow" aria-hidden="true">↗</span></div><p>${esc(x.text)}</p><span class="catalog-note">Pracovní obrazový podklad</span></div></a></article>`).join('');
+ return `<main id="main"><section class="section subpage-content"><div class="container"><p class="eyebrow">Odruky / realizace</p><h1>Pracovní galerie</h1><p>Výběr dostupných fotografií ukazuje různé typy dřevěných prostorů, které jsou v pracovním náhledu přiřazené k nabídce Odruky.</p><p class="pending">Jde o veřejný pracovní obrazový náhled; nejde o zákaznické reference ani produkční schválení fotografií pro finální web.</p><div class="catalog" id="realizace-galerie">${cards}</div></div></section>${contactContent()}</main>`;
+}
+
 function otherPage(){
  const data={
  'o-nas':{title:'O nás',text:'Odruky vytváří dřevěné prostory podle individuálního zadání. Na začátku je rozhovor o místě, využití a vašich představách. Potvrzený příběh firmy, tým a zkušenosti čekají na doplnění.'},
@@ -111,7 +122,7 @@ function otherPage(){
  return `<main id="main"><section class="section subpage-content"><div class="container"><p class="eyebrow">Odruky / informace</p><h1>${esc(data.title)}</h1>${current==='kontakt'&&selectedIntent?`<p class="contact-intent" role="status">Vybraný výrobek: <strong>${esc(selectedIntent.name)}</strong></p>`:''}<p>${esc(data.text)}</p>${current==='ochrana-osobnich-udaju'?'<div class="pending">PRACOVNÍ STAV: Toto není finální právní dokument určený ke zveřejnění.</div>':''}${current==='kontakt'?'<p class="subtle">Níže najdete dostupné možnosti spojení. Kontakty čekají na ověření.</p>':`<p>${link(inquiryHref(current==='zakazkova-vyroba'?current:null),'Přejít na kontakt →','button button-green')}</p>`}</div></section>${contactContent()}</main>`;
 }
 const dialog=()=>`<dialog class="modal" id="lightbox" aria-labelledby="modal-title"><div class="modal-shell"><div class="modal-top"><h2 id="modal-title">Prohlížení fotografií</h2><button class="modal-close" id="modal-close" type="button" aria-label="Zavřít a zpět na úvod">Zavřít a zpět na úvod ✕</button></div><div class="modal-stage"><button class="modal-prev" type="button" id="modal-prev" aria-label="Předchozí fotografie">←</button><img id="modal-image" alt="" hidden><div id="modal-missing" class="modal-placeholder">Fotografie zatím nebyla dodána</div><button class="modal-next" type="button" id="modal-next" aria-label="Následující fotografie">→</button></div><div class="modal-caption"><h3 id="modal-image-title"></h3><p id="modal-desc"></p><p id="modal-counter" class="subtle"></p></div><div class="modal-footer"><button type="button" id="modal-gallery-close">Zpět do galerie</button></div></div></dialog>`;
-document.getElementById('app').innerHTML=nav()+status()+themePicker()+(category?detail(category):current==='home'?home():otherPage())+footer()+(category?dialog():'');
+document.getElementById('app').innerHTML=nav()+status()+themePicker()+(category?detail(category):current==='home'?home():current==='realizace'?realizationsPage():otherPage())+footer()+(category?dialog():'');
 setTheme(initialTheme);
 const loadDeferredImage=img=>{const src=img.dataset.src;if(!src)return;img.src=src;delete img.dataset.src;};
 const deferredImages=[...document.querySelectorAll('img[data-src]')];
