@@ -28,7 +28,7 @@ const server=http.createServer((req,res)=>{
  const browser=await chromium.launch({headless:true}),records=[];
  try{
   for(const cfg of [{site:'odruky',concept:'studio',expectedImages:8,selector:'#nabidka .catalog-item',count:5},{site:'zoja',concept:'retreat',expectedImages:16,selector:'.gallery-image-link',count:15}]){
-   for(const width of [320,390,768,1280,1440]){
+   for(const width of [320,390,768,1024,1280,1440]){
     const page=await browser.newPage({viewport:{width,height:860}}),errors=[],bad=[];
     page.on('pageerror',e=>errors.push(e.message));
     page.on('response',r=>{if(r.status()>=400)bad.push(r.status()+' '+r.url())});
@@ -102,6 +102,17 @@ const server=http.createServer((req,res)=>{
     records.push({site:cfg.site,concept:cfg.concept,width,heroHeight:Math.round(info.hero.h),photoTop:Math.round(info.photo.y),photoHeight:Math.round(info.photo.h),images:info.visibleImgs});
     await page.close();
    }
+  }
+  // V7 acceptance: 200% zoom equivalent viewport and reduced-motion behavior.
+  {
+   const page=await browser.newPage({viewport:{width:720,height:900}});
+   await page.goto(base+'odruky/',{waitUntil:'domcontentloaded'});
+   assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth-innerWidth)<=1,true,'Odruky 200% zoom equivalent must not overflow');
+   assert.equal(await page.locator('#mobile-toggle').isVisible(),true,'Odruky navigation remains available at 200% zoom equivalent');
+   await page.emulateMedia({reducedMotion:'reduce'});
+   const motion=await page.evaluate(()=>[...document.querySelectorAll('*')].slice(0,300).map(el=>{const s=getComputedStyle(el);return [s.animationDuration,s.transitionDuration]}).filter(([a,t])=>a!=='0s'||t!=='0s').slice(0,10));
+   assert.deepEqual(motion,[],'reduced motion must disable non-zero animation/transition durations');
+   await page.close();
   }
   // P3: complete Studio customer journey for each canonical product.
   for(const width of [390,1280]){
