@@ -28,7 +28,7 @@ test('Studio catalogue indices meet 4.5:1 small-text contrast',()=>{
 });
 test('Zoja practical eyebrow meets 4.5:1 small-text contrast',()=>{
  const bg=hex(rule(themes,'.practical{').match(/background:s*(#[0-9a-f]{6})/i)[1]);
- const specific=themes.includes('.practical .ey{')?rule(themes,'.practical .ey{'):rule(retreat,':root[data-concept="retreat"] .ey');
+ const specific=retreat.includes(':root[data-concept="retreat"] .practical .ey{')?rule(retreat,':root[data-concept="retreat"] .practical .ey{'):rule(retreat,':root[data-concept="retreat"] .ey');
  const fg=hex(specific.match(/color:s*(#[0-9a-f]{6})/i)[1]);
  assert.ok(ratio(fg,bg)>=4.5,'practical eyebrow contrast '+ratio(fg,bg).toFixed(2));
 });
