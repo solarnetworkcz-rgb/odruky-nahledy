@@ -137,6 +137,54 @@ const server=http.createServer((req,res)=>{
    assert.deepEqual(errors,[],'P3 studio user journey '+width);
    await page.close();
   }
+  // Current V6 interaction contract: keyboard menus, principles, process, gallery pause and lightbox focus safety.
+  for(const width of [390,1280]){
+   const page=await browser.newPage({viewport:{width,height:900}});
+   await page.goto(base+'odruky/',{waitUntil:'domcontentloaded'});
+   if(width===390){
+    const toggle=page.locator('#mobile-toggle');
+    await toggle.click();
+    assert.equal(await toggle.getAttribute('aria-expanded'),'true','mobile menu opens');
+    await page.keyboard.press('Escape');
+    assert.equal(await toggle.getAttribute('aria-expanded'),'false','mobile menu closes on Escape');
+    assert.equal(await toggle.evaluate(el=>document.activeElement===el),true,'mobile menu restores focus');
+   }else{
+    const toggle=page.locator('#nav-toggle');
+    await toggle.click();
+    assert.equal(await toggle.getAttribute('aria-expanded'),'true','desktop product menu opens');
+    await page.keyboard.press('Escape');
+    assert.equal(await toggle.getAttribute('aria-expanded'),'false','desktop product menu closes on Escape');
+    assert.equal(await toggle.evaluate(el=>document.activeElement===el),true,'desktop product menu restores focus');
+   }
+   const principles=page.locator('[data-principle]');
+   assert.equal(await principles.count(),3);
+   await principles.nth(1).click();
+   assert.equal(await principles.nth(1).getAttribute('aria-expanded'),'true');
+   assert.equal(await page.locator('#principle-1').isVisible(),true);
+   const steps=page.locator('[data-step]');
+   assert.equal(await steps.count(),4);
+   const before=(await page.locator('#step-detail').textContent()).trim();
+   await steps.nth(2).click();
+   const after=(await page.locator('#step-detail').textContent()).trim();
+   assert.notEqual(after,before,'process step detail changes');
+   await page.close();
+  }
+  {
+   const page=await browser.newPage({viewport:{width:1280,height:900}});
+   await page.goto(base+'odruky/sauny/',{waitUntil:'domcontentloaded'});
+   const pause=page.locator('#gallery-pause');
+   const initial=await pause.getAttribute('aria-pressed');
+   await pause.click();
+   assert.notEqual(await pause.getAttribute('aria-pressed'),initial,'gallery pause toggles');
+   const item=page.locator('.gallery-item').filter({has:page.locator('img')}).first();
+   await item.click();
+   const modal=page.locator('#lightbox');
+   assert.equal(await modal.evaluate(d=>d.open),true,'Odruky lightbox opens');
+   await page.keyboard.press('Escape');
+   assert.equal(await modal.evaluate(d=>d.open),false,'Odruky lightbox closes on Escape');
+   assert.equal(await item.evaluate(el=>document.activeElement===el),true,'Odruky lightbox restores focus');
+   await page.close();
+  }
   for(const [site,concept,picker] of [['odruky','studio','.theme-picker'],['zoja','retreat','.design-picker']]){
    const page=await browser.newPage();
    await page.goto(base+site+'/?theme=b',{waitUntil:'domcontentloaded'});
