@@ -137,11 +137,13 @@ const server=http.createServer((req,res)=>{
    assert.deepEqual(errors,[],'P3 studio user journey '+width);
    await page.close();
   }
-  for(const site of ['odruky','zoja']){
+  for(const [site,concept,picker] of [['odruky','studio','.theme-picker'],['zoja','retreat','.design-picker']]){
    const page=await browser.newPage();
    await page.goto(base+site+'/?theme=b',{waitUntil:'domcontentloaded'});
-   assert.equal(await page.evaluate(()=>document.documentElement.dataset.concept||null),null,'default variant overwritten '+site);
-   assert.equal(await page.locator(site==='odruky'?'.theme-picker':'.design-picker').isVisible(),true);
+   assert.equal(await page.evaluate(()=>document.documentElement.dataset.concept||null),concept,'latest redesign must be default '+site);
+   await page.goto(base+site+'/?concept=classic&theme=b',{waitUntil:'domcontentloaded'});
+   assert.equal(await page.evaluate(()=>document.documentElement.dataset.concept||null),null,'classic comparison must remain available '+site);
+   assert.equal(await page.locator(picker).isVisible(),true,'classic picker visible '+site);
    await page.close();
   }
   for(const width of [390,1280]){
