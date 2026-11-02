@@ -232,9 +232,14 @@ const server=http.createServer((req,res)=>{
    await item.click();
    const modal=page.locator('#lightbox');
    assert.equal(await modal.evaluate(d=>d.open),true,'Odruky lightbox opens');
-   await page.keyboard.press('Escape');
-   assert.equal(await modal.evaluate(d=>d.open),false,'Odruky lightbox closes on Escape');
-   assert.equal(await item.evaluate(el=>document.activeElement===el),true,'Odruky lightbox restores focus');
+   await Promise.all([
+    page.waitForURL(url=>url.pathname===prefix+'odruky/'&&url.hash==='#top'),
+    page.keyboard.press('Escape')
+   ]);
+   assert.equal(new URL(page.url()).pathname,prefix+'odruky/','Odruky Escape returns home');
+   assert.equal(new URL(page.url()).hash,'#top','Odruky Escape targets top');
+   await page.waitForFunction(()=>document.activeElement?.id==='brand-h1'&&window.scrollY===0);
+   assert.equal(await page.locator('#brand-h1').evaluate(el=>document.activeElement===el),true,'Odruky Escape focuses home heading');
    await page.close();
   }
   for(const [site,concept,picker] of [['odruky','studio','.theme-picker'],['zoja','retreat','.design-picker']]){
