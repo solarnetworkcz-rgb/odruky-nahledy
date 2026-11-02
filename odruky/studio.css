@@ -61,7 +61,7 @@
 :root[data-concept="studio"] .catalog-copy{border-top:1px solid #b9c7b8;margin-top:12px;padding:15px 0 0}
 :root[data-concept="studio"] .catalog-copy-top{align-items:baseline}
 :root[data-concept="studio"] .catalog-copy h3{font:400 clamp(27px,3.1vw,47px)/1.1 Georgia,serif;letter-spacing:-.055em;color:#173528}
-:root[data-concept="studio"] .catalog-item .catalog-index{font:700 11px/1 Arial,sans-serif;letter-spacing:.15em;color:#8b7a5f}
+:root[data-concept="studio"] .catalog-item .catalog-index{font:700 11px/1 Arial,sans-serif;letter-spacing:.15em;color:#6f6048;opacity:1}
 :root[data-concept="studio"] .catalog-copy p{font-size:15px;color:#425d4b;margin:9px 0}
 :root[data-concept="studio"] .catalog-note{font-size:11px;color:#617363}
 :root[data-concept="studio"] .catalog-arrow{font-size:23px}

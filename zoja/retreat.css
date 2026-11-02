@@ -19,7 +19,7 @@
 :root[data-concept="retreat"] .hero .cta{display:inline-flex;align-items:center;justify-content:center;min-height:52px;border-radius:2px;background:#244634;color:#faf7ee;padding:13px 23px;font-weight:750;font-size:13px;letter-spacing:.015em;margin-top:23px;min-width:0}
 :root[data-concept="retreat"] .hero .cta:last-child{background:transparent!important;color:#21412f!important;border:1px solid #31523e!important}
 :root[data-concept="retreat"] .wrap{max-width:1470px;padding:clamp(65px,7vw,120px) clamp(20px,5vw,76px)}
-:root[data-concept="retreat"] .ey{color:#81684e;text-transform:uppercase;font-weight:750;letter-spacing:.16em;font-size:11px}
+:root[data-concept="retreat"] .ey{color:#81684e;text-transform:uppercase;font-weight:750;letter-spacing:.16em;font-size:11px}\n:root[data-concept="retreat"] .practical .ey{color:#735a3e}
 :root[data-concept="retreat"] h2{font-family:Georgia,serif;font-weight:400;letter-spacing:-.07em;line-height:1.06}
 :root[data-concept="retreat"] #objekt .intro{display:grid;grid-template-columns:minmax(0,.95fr) minmax(0,1.05fr);gap:clamp(35px,7vw,110px);align-items:start}
 :root[data-concept="retreat"] #objekt h2{font:400 clamp(48px,5.6vw,88px)/1.06 Georgia,serif;letter-spacing:-.068em;margin:15px 0 0}
