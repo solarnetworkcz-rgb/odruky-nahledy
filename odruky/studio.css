@@ -185,3 +185,10 @@
  :root[data-concept="studio"] .gallery-item{flex-basis:min(86vw,510px)}
  :root[data-concept="studio"] .detail-info h2{font-size:clamp(39px,9vw,60px)}
 }
+
+/* V6 accessibility: primary navigation and footer actions keep a practical touch target. */
+:root[data-concept="studio"] .wordmark{display:inline-flex;align-items:center;min-height:44px}
+:root[data-concept="studio"] .desktop-nav a,
+:root[data-concept="studio"] .nav-toggle{display:inline-flex;align-items:center;min-height:44px}
+:root[data-concept="studio"] .mobile-nav a{display:flex;align-items:center;min-height:44px}
+:root[data-concept="studio"] .footer-links a{display:flex;align-items:center;min-height:44px}
