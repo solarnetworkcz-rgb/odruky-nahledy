@@ -13,7 +13,7 @@ const path=require('node:path');
   await p.goto('http://127.0.0.1:'+port+'/odruky-nahledy/odruky/',{waitUntil:'networkidle'});
   const m=await p.evaluate(()=>{const n=performance.getEntriesByType('navigation')[0],res=performance.getEntriesByType('resource');return {dom:n.domContentLoadedEventEnd-n.startTime,load:n.loadEventEnd-n.startTime,transfer:res.reduce((a,x)=>a+(x.transferSize||0),0),resources:res.length,hero:document.querySelector('.hero-photo img')?.complete,images:[...document.images].filter(i=>!i.complete||!i.naturalWidth).length}});
   assert.equal(failed.length,0,'failed requests '+failed.join(','));
-  assert.equal(m.hero,true);assert.equal(m.images,0);
+  assert.equal(m.hero,true);if(m.images)console.error('BROKEN_IMAGES',await p.evaluate(()=>[...document.images].filter(i=>!i.complete||!i.naturalWidth).map(i=>i.src)));assert.equal(m.images,0);
   assert.ok(m.resources<=20,'resource count '+m.resources);
   assert.ok(m.transfer<=8*1024*1024,'homepage transfer '+m.transfer);
   assert.ok(m.dom<3000,'local DOMContentLoaded '+m.dom);
