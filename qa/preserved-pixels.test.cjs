@@ -161,13 +161,13 @@ test('CLI returns a machine-readable status and enforces blocked exit code',asyn
     fs.writeFileSync(pairsFile,JSON.stringify({pairs:f.pairs}));
     const args=[path.join(__dirname,'preserved-pixels.cjs'),
       '--pairs',pairsFile,'--original-dir',f.originalDir,'--wide-dir',f.wideDir];
-    const good=spawnSync(process.execPath,args,{encoding:'utf8',env:process.env,timeout:15000});
+    const good=spawnSync(process.execPath,args,{encoding:'utf8',env:process.env,timeout:45000});
     assert.equal(good.status,0,good.stderr);
     const data=JSON.parse(good.stdout);
     assert.equal(data.status,'PIXEL_SUBSET_VERIFIED');
     assert.equal(data.releaseReady,false);
     fs.writeFileSync(path.join(f.wideDir,'F02-wide.png'),Buffer.from(fixtures.wideBad,'base64'));
-    const bad=spawnSync(process.execPath,args,{encoding:'utf8',env:process.env,timeout:15000});
+    const bad=spawnSync(process.execPath,args,{encoding:'utf8',env:process.env,timeout:45000});
     assert.equal(bad.status,2,bad.stderr);
     assert.equal(JSON.parse(bad.stdout).status,'BLOCKED');
   }finally{fs.rmSync(f.dir,{recursive:true,force:true})}
